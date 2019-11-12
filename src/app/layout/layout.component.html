@@ -1,3 +1,6 @@
-<p>
-  layout works!
-</p>
+<app-navigation #sidenav>
+</app-navigation>
+
+<button mat-icon-button>
+  <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+</button>
