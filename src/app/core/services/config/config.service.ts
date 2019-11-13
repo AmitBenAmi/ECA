@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { OIDCConfig } from './oidc.config';
 
 @Injectable({
     providedIn: 'root'
@@ -6,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
 
     public isDebugMode = true;
+    public oidc = new OIDCConfig();
 
     constructor() { }
 

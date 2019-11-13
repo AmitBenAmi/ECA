@@ -1,18 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { OidcSecurityService, OpenIdConfiguration, AuthorizationResult, AuthorizationState, OidcConfigService, ConfigResult } from 'angular-auth-oidc-client';
-import { Observable ,  Subscription, throwError } from 'rxjs';
+import { Observable ,  Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoggerService } from '../logger/logger.service';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class AuthService implements OnDestroy {
-    private static authUrl = 'https://accounts.google.com';
-
     private originUrl = 'http://localhost:4200';
-    private _isAuthorized = false;
 
     constructor(
         private oidcSecurityService: OidcSecurityService,
         private oidcConfigService: OidcConfigService,
+        private loggerService: LoggerService,
+        private configService: ConfigService,
         private router: Router
     ) {
         this.initAuth();
@@ -29,35 +30,31 @@ export class AuthService implements OnDestroy {
     public async initAuth() {
         this.oidcConfigService.onConfigurationLoaded.subscribe((oidcConfigResult: ConfigResult) => {
             const openIdConfiguration: OpenIdConfiguration = {
-                stsServer: AuthService.authUrl,
-                redirect_url: this.originUrl + '/blabla',
-                client_id: '189985125254-mrqdsut64mhhimftt3q3skfvut69q8eb.apps.googleusercontent.com',
-                response_type: 'id_token token',
-                scope: 'openid profile',
-                post_logout_redirect_uri: this.originUrl + '/amit',
-                forbidden_route: '/forbidden',
-                unauthorized_route: '/unauthorized',
+                stsServer: this.configService.oidc.authUrl,
+                redirect_url: this.originUrl,
+                client_id: this.configService.oidc.oidcClientId,
+                response_type: this.configService.oidc.responseType,
+                scope: this.configService.oidc.scope,
+                post_logout_redirect_uri: this.configService.oidc.routing.loggedOutRoute,
+                forbidden_route: this.configService.oidc.routing.forbidden,
+                unauthorized_route: this.configService.oidc.routing.unauthorized,
                 silent_renew: true,
                 silent_renew_url: this.originUrl + '/silent-renew.html',
                 history_cleanup_off: true,
                 auto_userinfo: true,
-                log_console_warning_active: true,
-                log_console_debug_active: true,
-                max_id_token_iat_offset_allowed_in_seconds: 10,
+                log_console_warning_active: this.configService.isDebugMode,
+                log_console_debug_active: this.configService.isDebugMode
             };
     
             this.oidcSecurityService.setupModule(openIdConfiguration, oidcConfigResult.authWellknownEndpoints);
     
             if (this.oidcSecurityService.moduleSetup) {
-                this.doCallbackLogicIfRequired();
+                this.onOidcModuleSetup();
             } else {
                 this.oidcSecurityService.onModuleSetup.subscribe(() => {
-                    this.doCallbackLogicIfRequired();
+                    this.onOidcModuleSetup();
                 });
             }
-            this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized().subscribe((isAuthorized => {
-                this._isAuthorized = isAuthorized;
-            }));
     
             this.oidcSecurityService.onAuthorizationResult.subscribe(
                 (authorizationResult: AuthorizationResult) => {
@@ -67,24 +64,22 @@ export class AuthService implements OnDestroy {
     }
 
     private onAuthorizationResultComplete(authorizationResult: AuthorizationResult) {
-
-        console.log('Auth result received AuthorizationState:'
-            + authorizationResult.authorizationState
-            + ' validationResult:' + authorizationResult.validationResult);
+        this.loggerService.info(`Auth result received AuthorizationState: ${authorizationResult.authorizationState}, 
+            ValidationResult: ${authorizationResult.validationResult}`);
 
         if (authorizationResult.authorizationState === AuthorizationState.unauthorized) {
-            if (window.parent) {
-                // sent from the child iframe, for example the silent renew
-                this.router.navigate(['/unauthorized']);
-            } else {
-                window.location.href = '/unauthorized';
-            }
+            this.router.navigate([`/${this.configService.oidc.routing.loggedOutRoute}`]);
+            // if (window.parent) {
+            //     // sent from the child iframe, for example the silent renew
+            //     this.router.navigate([`/${this.configService.oidc.routing.loggedOutRoute}`]);
+            // } else {
+            //     window.location.href = `/${this.configService.oidc.routing.loggedOutRoute}`;
+            // }
         }
     }
 
-    private doCallbackLogicIfRequired() {
-
-        this.oidcSecurityService.authorizedCallbackWithCode(window.location.toString());
+    private onOidcModuleSetup() {
+        this.oidcSecurityService.authorizedImplicitFlowCallback();
     }
 
     getIsAuthorized(): Observable<boolean> {
@@ -92,12 +87,12 @@ export class AuthService implements OnDestroy {
     }
 
     login() {
-        console.log('start login');
+        this.loggerService.info('Start Login');
         this.oidcSecurityService.authorize();
     }
 
     logout() {
-        console.log('start logoff');
+        this.loggerService.info('start logoff');
         this.oidcSecurityService.logoff();
     }
 
@@ -107,10 +102,6 @@ export class AuthService implements OnDestroy {
     //     return this.appendAuthHeader(headers);
     // }
 
-    get isAuthorized() {
-        return this._isAuthorized;
-    }
-
     public getToken() {
         const token = this.oidcSecurityService.getToken();
         return token;
@@ -118,7 +109,7 @@ export class AuthService implements OnDestroy {
 
     static loadOidcConfig(oidcConfigService: OidcConfigService) {
         return () => {
-            oidcConfigService.load_using_stsServer(AuthService.authUrl);
+            oidcConfigService.load_using_stsServer(new ConfigService().oidc.authUrl);
         }
     }
 
