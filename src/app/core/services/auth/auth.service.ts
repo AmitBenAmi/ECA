@@ -7,7 +7,8 @@ import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class AuthService implements OnDestroy {
-    private originUrl = 'http://localhost:4200';
+    private originUrl = 'http://localhost:4200/login';
+    private _isAuthorized: boolean = false;
 
     constructor(
         private oidcSecurityService: OidcSecurityService,
@@ -55,12 +56,20 @@ export class AuthService implements OnDestroy {
                     this.onOidcModuleSetup();
                 });
             }
+
+            this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized().subscribe((isAuthorized => {
+                this._isAuthorized = isAuthorized;
+            }));
     
             this.oidcSecurityService.onAuthorizationResult.subscribe(
                 (authorizationResult: AuthorizationResult) => {
                     this.onAuthorizationResultComplete(authorizationResult);
                 });
         });
+    }
+
+    public get isAuthorized(): boolean {
+        return this._isAuthorized;
     }
 
     private onAuthorizationResultComplete(authorizationResult: AuthorizationResult) {

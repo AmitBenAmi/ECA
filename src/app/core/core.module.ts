@@ -10,6 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavComponent } from './components/nav/nav.component';
+import { LoginComponent } from './components/login/login.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -32,7 +33,11 @@ import { AuthService } from './services/auth/auth.service';
     AppRoutingModule,
     AuthModule.forRoot()
   ],
-  declarations: [CoreComponent, NavComponent],
+  declarations: [
+    CoreComponent, 
+    NavComponent,
+    LoginComponent
+  ],
   exports: [
     NavComponent
   ],
