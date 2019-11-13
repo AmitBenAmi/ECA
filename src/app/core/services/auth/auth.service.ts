@@ -7,7 +7,6 @@ import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class AuthService implements OnDestroy {
-    private originUrl = 'http://localhost:4200/login';
     private _isAuthorized: boolean = false;
 
     constructor(
@@ -32,7 +31,7 @@ export class AuthService implements OnDestroy {
         this.oidcConfigService.onConfigurationLoaded.subscribe((oidcConfigResult: ConfigResult) => {
             const openIdConfiguration: OpenIdConfiguration = {
                 stsServer: this.configService.oidc.authUrl,
-                redirect_url: this.originUrl,
+                redirect_url: `${window.location.origin}/${this.configService.oidc.routing.loggedOutRoute}`,
                 client_id: this.configService.oidc.oidcClientId,
                 response_type: this.configService.oidc.responseType,
                 scope: this.configService.oidc.scope,
@@ -40,7 +39,7 @@ export class AuthService implements OnDestroy {
                 forbidden_route: this.configService.oidc.routing.forbidden,
                 unauthorized_route: this.configService.oidc.routing.unauthorized,
                 silent_renew: true,
-                silent_renew_url: this.originUrl + '/silent-renew.html',
+                silent_renew_url: `${window.location.origin}/${this.configService.oidc.routing.silentRenew}`,
                 history_cleanup_off: true,
                 auto_userinfo: true,
                 log_console_warning_active: this.configService.isDebugMode,

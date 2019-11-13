@@ -10,4 +10,5 @@ class OIDCRouteConfig {
     public loggedOutRoute = 'login';
     public unauthorized = 'unauthorized';
     public forbidden = 'forbidden';
+    public silentRenew = 'silent-renew.html';
 }
