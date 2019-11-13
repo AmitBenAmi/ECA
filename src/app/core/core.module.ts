@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { CoreComponent } from './core.component';
 import { AppRoutingModule } from '../app-routing.module';
 
@@ -12,9 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 
+import { HttpService } from './services/http/http.service';
+
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
@@ -27,6 +31,9 @@ import { MatListModule } from '@angular/material/list';
   declarations: [CoreComponent, NavComponent],
   exports: [
     NavComponent
+  ],
+  providers: [
+    HttpService
   ]
 })
 export class CoreModule { }
