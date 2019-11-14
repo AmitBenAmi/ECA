@@ -23,4 +23,6 @@ export class NavComponent {
 export class NavItem {
   text: string;
   href: string;
+  children?: NavItem[];
+  expanded?: boolean;
 }

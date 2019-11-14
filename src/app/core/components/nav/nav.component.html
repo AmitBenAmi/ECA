@@ -3,9 +3,26 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>תפריט</mat-toolbar>
+    <mat-toolbar>
+      <img id="logoImg" src="../../assets/logo.png">
+    </mat-toolbar>
     <mat-nav-list>
-      <a *ngFor="let navitem of items" mat-list-item [href]="navitem.href">{{navitem.text}}</a> 
+      <div *ngFor="let navitem of items" >
+          <div *ngIf="navitem.children.length > 0">
+              <a mat-list-item (click)="navitem.expanded = !navitem.expanded">{{navitem.text}}
+                  <mat-icon *ngIf="!navitem.expanded">chevron_left</mat-icon>
+                  <mat-icon *ngIf="navitem.expanded">expand_more</mat-icon>
+              </a>
+              <div *ngIf="navitem.expanded">
+                <div *ngFor="let child of navitem.children">
+                    <a mat-list-item [href]="child.href">{{child.text}}</a> 
+                </div>
+              </div>
+          </div>
+          <div *ngIf="navitem.children.length == 0">
+              <a mat-list-item [href]="navitem.href" (click)="navitem.expanded = !navitem.expanded">{{navitem.text}}</a> 
+          </div>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
