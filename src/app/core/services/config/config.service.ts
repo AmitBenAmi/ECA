@@ -9,6 +9,7 @@ import { AuthType } from '../auth/auth';
 export class ConfigService {
 
     public isDebugMode = true;
+    public apiUrl = "http://localhost:58723/api";
     public static authType: AuthType = AuthType.OIDC;
     public oidc = new OIDCConfig();
 
