@@ -27,6 +27,7 @@ import { AuthService } from './services/auth/auth.service';
 import { OIDCAuthService } from './services/auth/oidc/oidc.auth.service';
 import { ConfigService } from './services/config/config.service';
 import { LoggerService } from './services/logger/logger.service';
+import { MainViewComponent } from './components/main-view/main-view.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { LoggerService } from './services/logger/logger.service';
     CoreComponent, 
     NavComponent,
     TableComponent,
-    LoginComponent
+    LoginComponent,
+    MainViewComponent
   ],
   exports: [
     NavComponent
