@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { TableDataSource, TableItem } from './table-datasource';
+import { TableItem } from './view-model.table-datasource'
+import { TableDataSource } from './table-datasource';
 
 @Component({
   selector: 'app-table',
@@ -16,10 +17,20 @@ export class TableComponent implements AfterViewInit, OnInit {
   dataSource: TableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns: string[] = [];
+
+  @Input() data: TableItem[] = [];
+  @Input() pageSize: number = 20;
+  @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
 
   ngOnInit() {
-    this.dataSource = new TableDataSource();
+    this.dataSource = new TableDataSource(this.data);
+
+    if (this.dataSource &&
+        this.dataSource.data &&
+        this.dataSource.data.length > 0) {
+      this.displayedColumns = Object.keys(this.dataSource.data[0]);
+    }
   }
 
   ngAfterViewInit() {
