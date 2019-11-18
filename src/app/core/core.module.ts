@@ -4,14 +4,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavComponent } from './components/nav/nav.component';
+import { TableComponent } from './components/table/table.component';
 import { LoginComponent } from './components/login/login.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AuthModule, OidcSecurityService, OidcConfigService } from 'angular-auth-oidc-client';
 
@@ -29,18 +33,22 @@ import { LoggerService } from './services/logger/logger.service';
     CommonModule,
     HttpClientModule,
     MatToolbarModule,
+    MatTableModule,
     MatIconModule,
     MatMenuModule,
     LayoutModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
+    MatPaginatorModule,
+    MatSortModule,
     AppRoutingModule,
     AuthModule.forRoot()
   ],
   declarations: [
     CoreComponent, 
     NavComponent,
+    TableComponent,
     LoginComponent
   ],
   exports: [
