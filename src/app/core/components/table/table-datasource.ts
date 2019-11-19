@@ -14,11 +14,11 @@ export class TableDataSource extends DataSource<TableItem> {
   paginator: MatPaginator;
   sort: MatSort;
 
-  constructor(private _data: TableItem[]) {
+  constructor(private _data: Array<TableItem>) {
     super();
   }
 
-  public get data(): TableItem[] {
+  public get data(): Array<TableItem> {
     return this._data;
   }
 
@@ -27,7 +27,7 @@ export class TableDataSource extends DataSource<TableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<TableItem[]> {
+  connect(): Observable<Array<TableItem>> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -51,7 +51,7 @@ export class TableDataSource extends DataSource<TableItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: TableItem[]) {
+  private getPagedData(data: Array<TableItem>) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -60,7 +60,7 @@ export class TableDataSource extends DataSource<TableItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: TableItem[]) {
+  private getSortedData(data: Array<TableItem>) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

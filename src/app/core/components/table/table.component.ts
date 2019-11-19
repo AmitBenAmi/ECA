@@ -19,7 +19,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns: string[] = [];
 
-  @Input() data: TableItem[] = [];
+  @Input() data: Array<TableItem> = [];
   @Input() pageSize: number = 20;
   @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
 
