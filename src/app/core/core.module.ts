@@ -19,7 +19,6 @@ import { MatSortModule } from '@angular/material/sort';
 
 import { AuthModule, OidcSecurityService, OidcConfigService } from 'angular-auth-oidc-client';
 
-import { CoreComponent } from './core.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { HttpService } from './services/http/http.service';
 import { authFactory } from './services/auth/auth.factory';
@@ -27,7 +26,6 @@ import { AuthService } from './services/auth/auth.service';
 import { OIDCAuthService } from './services/auth/oidc/oidc.auth.service';
 import { ConfigService } from './services/config/config.service';
 import { LoggerService } from './services/logger/logger.service';
-import { MainViewComponent } from './components/main-view/main-view.component';
 
 @NgModule({
   imports: [
@@ -47,14 +45,13 @@ import { MainViewComponent } from './components/main-view/main-view.component';
     AuthModule.forRoot()
   ],
   declarations: [
-    CoreComponent, 
     NavComponent,
     TableComponent,
-    LoginComponent,
-    MainViewComponent
+    LoginComponent
   ],
   exports: [
-    NavComponent
+    NavComponent,
+    TableComponent
   ],
   providers: [
     HttpService,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DataService } from '../../core/services/data/data.service';
-import { HttpService } from '../../core/services/http/http.service';
-import { LoggerService } from '../../core/services/logger/logger.service';
+import { DataService } from '../data/data.service';
+import { HttpService } from '../../../core/services/http/http.service';
+import { LoggerService } from '../../../core/services/logger/logger.service';
 
 @Injectable({
   providedIn: 'root'

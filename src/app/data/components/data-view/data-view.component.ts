@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { TableItem } from '../table/view-model.table-datasource';
+import { TableItem } from '../../../core/components/table/view-model.table-datasource';
 import { DataService } from '../../services/data/data.service';
 
 @Component({
-  selector: 'app-main-view',
-  templateUrl: './main-view.component.html',
-  styleUrls: ['./main-view.component.less']
+  selector: 'app-data-view',
+  templateUrl: './data-view.component.html',
+  styleUrls: ['./data-view.component.less']
 })
-export class MainViewComponent implements OnInit {
-  data: Array<TableItem>;
+export class DataViewComponent implements OnInit {
+  data: Array<TableItem> = [];
 
-  constructor(private dataService: DataService) { 
-  }
+  constructor(private dataService: DataService) { }
 
   async ngOnInit() {
     let dataFromService = await this.dataService.getData();

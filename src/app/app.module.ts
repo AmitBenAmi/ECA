@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
+import { DataModule } from './data/modules/data/data.module';
 
 @NgModule({
    declarations: [
@@ -14,7 +15,8 @@ import { CoreModule } from './core/core.module';
       BrowserModule,
       AppRoutingModule,
       BrowserAnimationsModule,
-      CoreModule
+      CoreModule,
+      DataModule
    ],
    providers: [],
    bootstrap: [
