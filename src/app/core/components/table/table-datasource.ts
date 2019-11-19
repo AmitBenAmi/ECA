@@ -22,6 +22,10 @@ export class TableDataSource extends DataSource<TableItem> {
     return this._data;
   }
 
+  public set data(value: Array<TableItem>) {
+    this._data = value;
+  }
+
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.

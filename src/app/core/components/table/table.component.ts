@@ -15,27 +15,45 @@ export class TableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<TableItem>;
   dataSource: TableDataSource;
-
+  
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns: string[] = [];
 
-  @Input() data: Array<TableItem> = [];
+  private _data: Array<TableItem> = [];
+  private _isDataInitialized: boolean = false;
+
+  @Input()
+  set data(value: Array<TableItem>) {
+    this._data = value;
+
+    this.setDataSource();
+  }
+
   @Input() pageSize: number = 20;
   @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
 
   ngOnInit() {
-    this.dataSource = new TableDataSource(this.data);
-
-    if (this.dataSource &&
-        this.dataSource.data &&
-        this.dataSource.data.length > 0) {
-      this.displayedColumns = Object.keys(this.dataSource.data[0]);
-    }
+    this.setDataSource();
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    this._isDataInitialized = true;
+  }
+
+  private setDataSource(): void {
+    if (!this.dataSource) {
+      this.dataSource = new TableDataSource(this._data);
+    } else {
+      this.dataSource.data = this._data;
+    }
+
+    if (this.dataSource &&
+        this.dataSource.data &&
+        this.dataSource.data.length > 0) {
+      this.displayedColumns = Object.keys(this.dataSource.data[0]);
+    }
   }
 }
