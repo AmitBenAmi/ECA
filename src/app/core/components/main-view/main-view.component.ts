@@ -1,21 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableItem } from '../table/view-model.table-datasource';
-
-const EXAMPLE_DATA: TableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'}
-];
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'app-main-view',
@@ -23,13 +8,30 @@ const EXAMPLE_DATA: TableItem[] = [
   styleUrls: ['./main-view.component.less']
 })
 export class MainViewComponent implements OnInit {
-  data: TableItem[];
+  data: Array<TableItem>;
 
-  constructor() { 
-    this.data = EXAMPLE_DATA;
+  constructor(private dataService: DataService) { 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let dataFromService = await this.dataService.getData();
+    this.data = this.convertDataToTableItem(dataFromService);
+  }
+
+  private convertDataToTableItem(data: any): Array<TableItem> {
+    if (this.isDataArray(data)) {
+      return data;
+    } else {
+      let dataAsArray: Array<TableItem> = [
+        data
+      ];
+
+      return dataAsArray;
+    }
+  }
+
+  private isDataArray(data: any): boolean {
+    return Array.isArray(data);
   }
 
 }
