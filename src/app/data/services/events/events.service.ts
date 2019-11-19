@@ -22,7 +22,8 @@ export class EventsService extends DataService {
     let events = await this.httpService.post(`${this.configService.apiUrl}/${this.dataRouteConfigService.api.events}`, {
       caseId: 0,
       legalEntityNumber: '0'
-    })
+    });
+    
     return events;
   }
 }

@@ -8,7 +8,7 @@ import { DataService } from '../../services/data/data.service';
   styleUrls: ['./data-view.component.less']
 })
 export class DataViewComponent implements OnInit {
-  data: Array<TableItem> = [];
+  data: Array<TableItem>;
 
   constructor(private dataService: DataService) { }
 

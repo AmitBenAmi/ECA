@@ -40,9 +40,12 @@ export class TableDataSource extends DataSource<TableItem> {
       this.sort.sortChange
     ];
 
-    return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
-    }));
+    return merge(...dataMutations)
+      .pipe(
+        map(() => {
+          return this.getPagedData(this.getSortedData([...this.data]));
+        })
+      );
   }
 
   /**
@@ -71,11 +74,7 @@ export class TableDataSource extends DataSource<TableItem> {
 
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
-      switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
-        default: return 0;
-      }
+      return compare(a[this.sort.active], b[this.sort.active], isAsc);
     });
   }
 }
