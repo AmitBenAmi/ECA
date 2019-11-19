@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { DataModule } from '../modules/data/data.module';
 
-@Injectable({
-    providedIn: DataModule
-})
+@Injectable()
 export class DataRouteConfig {
     public static events: string = 'events';
 
