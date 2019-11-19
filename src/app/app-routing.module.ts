@@ -6,11 +6,11 @@ import { ConfigService } from './core/services/config/config.service';
 import { AuthGuard } from './core/services/auth/auth.guard';
 
 import { DataViewComponent } from './data/components/data-view/data-view.component';
-import { DataRouteConfig } from './data/config/data.route.config';
+import { DataRouteConfigService } from './data/services/config/data.route.config.service';
 
 const routes: Routes = [
   { path: ConfigService.route.login, component: LoginComponent },
-  { path: DataRouteConfig.events, component: DataViewComponent },
+  { path: DataRouteConfigService.events, component: DataViewComponent },
   { path: '', canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [] }
 ];
 

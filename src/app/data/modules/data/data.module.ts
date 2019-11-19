@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 
 import { CoreModule } from '../../../core/core.module'
 
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
-import { DataRouteConfig } from '../../config/data.route.config';
+import { DataRouteConfigService } from '../../services/config/data.route.config.service';
 import { DataViewComponent } from '../../components/data-view/data-view.component';
 import { DataService } from '../../services/data/data.service';
 import { dataServiceFactory } from '../../services/data/data.service.factory';
@@ -24,14 +24,15 @@ import { dataServiceFactory } from '../../services/data/data.service.factory';
     DataViewComponent
   ],
   providers: [
-    DataRouteConfig,
+    DataRouteConfigService,
     {
       provide: DataService,
       useFactory: dataServiceFactory(),
       deps: [
-        ActivatedRoute,
         HttpService,
-        LoggerService
+        LoggerService,
+        ConfigService,
+        DataRouteConfigService
       ]
     }
   ]
