@@ -1,42 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import { NavItem } from './core/components/nav/nav.component';
+import {TranslateService} from '@ngx-translate/core';
+import { LOCALE_ID } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit {
+export class AppComponent{
   title = 'ECA';
 
-  constructor() {}
+  navitems : NavItem[]= null;
 
-  async ngOnInit() {}
-
-  navitems : NavItem[]= [
-    {text: 'פרטים אישיים', href:'/', children: [{text: 'עדכון טלפון ודואר אלקטרוני', href:'/events'}], expanded: true},
-    {
-      text: 'פעילות בתיק', 
-      href:'/', 
-      children: [
-        {text: 'הגשת בקשה', href:'/'},
-        {text: 'בקשות בהמתנה/נדחו', href:'/'},
-        {text: 'פתיחת תיק', href:'/'},
-        {text: 'פעילויות עיקריות בתיקים', href:'/'},
-        {text: 'הוספת ייצוג בתיקים', href: '/'},
-        {text: 'תוצאות הוספת ייצוג', href: '/'}
-      ]
-    },
-    {
-      text: 'פעילות במערכת',
-      href: '/',
-      children: [
-        {text: 'יומן לשכה', href: '/'},
-        {text: 'תיקים לתאריך פתיחה', href: '/'},
-        {text: 'תיקים שלי', href: '/'},
-        {text: 'בדיקת הליך ביצוע', href: '/'},
-        {text: 'לתשלום בכרטיס אשראי', href: '/'},
-      ]
-    }
-  ]
+  constructor(@Inject(LOCALE_ID) public locale: string,
+              private translate: TranslateService) {
+    
+    translate.setDefaultLang(locale);
+    translate.get("test").subscribe(() => {
+      this.navitems = [
+        {text: this.translate.instant("navbar.personalDetails.text"), href:'/', children: [{text: this.translate.instant("navbar.personalDetails.updateDetails.text"), href:'/'}], expanded: true},
+        {
+          text: this.translate.instant("navbar.caseActivities.text"), 
+          href:'/', 
+          children: [
+            {text: this.translate.instant("navbar.caseActivities.requestSubmit.text"), href:'/'},
+            {text: this.translate.instant("navbar.caseActivities.waitRejectRequests.text"), href:'/'},
+            {text: this.translate.instant("navbar.caseActivities.openCase.text"), href:'/'},
+            {text: this.translate.instant("navbar.caseActivities.mainActivities.text"), href:'/'},
+            {text: this.translate.instant("navbar.caseActivities.addRepresntative.text"), href: '/'},
+            {text: this.translate.instant("navbar.caseActivities.addRepresntResult.text"), href: '/'}
+          ]
+        },
+        {
+          text: this.translate.instant("navbar.appActivities.text"),
+          href: '/',
+          children: [
+            {text: this.translate.instant("navbar.appActivities.lishka.text"), href: '/'},
+            {text: this.translate.instant("navbar.appActivities.caseForDate.text"), href: '/'},
+            {text: this.translate.instant("navbar.appActivities.myCases.text"), href: '/'},
+            {text: this.translate.instant("navbar.appActivities.checkProcess.text"), href: '/'},
+            {text: this.translate.instant("navbar.appActivities.payment.text"), href: '/'},
+          ]
+        }
+      ];
+    })   
+  }
+  
 }

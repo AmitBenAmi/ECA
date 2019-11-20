@@ -1,0 +1,49 @@
+{
+    "navbar": {
+        "personalDetails": {
+            "text": "Personal details",
+            "updateDetails": {
+                "text": "Update phone and email"
+            }
+        },
+        "caseActivities": {
+            "text": "Case Options",
+            "requestSubmit": {
+                "text": "File a request"
+            },
+            "waitRejectRequests" : {
+                "text": "Waiting/rejected requests"
+            },
+            "openCase": {
+                "text": "Create a case"
+            },
+            "mainActivities": {
+                "text": "Common options for case"
+            },
+            "addRepresntative": {
+                "text": "Add representatives for cases"
+            },
+            "addRepresntResult": {
+                "text": "Add representatives results"
+            }
+        },
+        "appActivities": {
+            "text": "App options",
+            "lishka": {
+                "text": "Lishka events"
+            },
+            "caseForDate": {
+                "text": "Cases for open date"
+            },
+            "myCases": {
+                "text": "My Cases"
+            },
+            "checkProcess": {
+                "text": "Check case process"
+            },
+            "payment": {
+                "text": "Credit card payment"
+            }
+        }
+    }
+}

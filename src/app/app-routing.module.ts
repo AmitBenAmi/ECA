@@ -8,11 +8,12 @@ import { AuthGuard } from './core/services/auth/auth.guard';
 import { EventsRouteConfigService } from './features/events/services/events.route.config.service';
 
 const routes: Routes = [
-  { path: '', canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [] }
+  { path: '', canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [] },
   { path: ConfigService.route.login, component: LoginComponent },
   { 
     path: EventsRouteConfigService.events, 
-    loadChildren: () => import('./features/events/modules/events.module').then(m => m.EventsModule) },
+    loadChildren: () => import('./features/events/modules/events.module').then(m => m.EventsModule)
+  }
 ];
 
 @NgModule({

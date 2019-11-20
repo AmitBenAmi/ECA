@@ -10,7 +10,7 @@
       <div *ngFor="let navitem of items" >
           <div *ngIf="navitem.children.length > 0">
               <a mat-list-item (click)="navitem.expanded = !navitem.expanded">{{navitem.text}}
-                  <mat-icon>{{ navitem.expanded ? 'chevron_left' : 'expand_more' }}</mat-icon>
+                  <mat-icon class="mat-icon-rtl-mirror">{{ navitem.expanded ? 'chevron_right' : 'expand_more' }}</mat-icon>
               </a>
               <div *ngIf="navitem.expanded">
                 <div *ngFor="let child of navitem.children">
