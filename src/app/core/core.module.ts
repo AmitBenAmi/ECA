@@ -18,6 +18,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthModule, OidcSecurityService, OidcConfigService } from 'angular-auth-oidc-client';
 
@@ -29,10 +36,17 @@ import { OIDCAuthService } from './services/auth/oidc/oidc.auth.service';
 import { ConfigService } from './services/config/config.service';
 import { LoggerService } from './services/logger/logger.service';
 import { TreeComponent } from './components/tree/tree.component';
-
+import { InputComponent } from './components/input/input.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LOCALE_ID } from '@angular/core';
+import { ButtonComponent } from './components/button/button.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { DateComponent } from './components/date/date.component';
+import { RadioButtonComponent } from './components/radio-button/radio-button.component';
+import { SelectComponent } from './components/select/select.component';
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
 
 @NgModule({
   imports: [
@@ -51,6 +65,14 @@ import { LOCALE_ID } from '@angular/core';
     MatPaginatorModule,
     MatSortModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
+    MatRadioModule,
     AuthModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -64,12 +86,36 @@ import { LOCALE_ID } from '@angular/core';
     NavComponent,
     TableComponent,
     LoginComponent,
-    TreeComponent
+    TreeComponent,
+    InputComponent,
+    ButtonComponent,
+    SelectComponent,
+    DateComponent,
+    RadioButtonComponent,
+    CheckboxComponent,
+    DynamicFieldDirective,
+    DynamicFormComponent
   ],
   exports: [
     NavComponent,
     TableComponent,
     TreeComponent,
+    InputComponent,
+    ButtonComponent,
+    CheckboxComponent,
+    DateComponent,
+    RadioButtonComponent,
+    SelectComponent,
+    DynamicFormComponent,
+    DynamicFieldDirective
+  ],
+  entryComponents: [
+    InputComponent,
+    ButtonComponent,
+    SelectComponent,
+    DateComponent,
+    RadioButtonComponent,
+    CheckboxComponent
   ],
   providers: [
     { provide: LOCALE_ID, useValue: getCurrentLocale()},
