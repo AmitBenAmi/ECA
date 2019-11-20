@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavItem } from './core/components/nav/nav.component';
 
 @Component({
@@ -6,11 +6,15 @@ import { NavItem } from './core/components/nav/nav.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ECA';
 
+  constructor() {}
+
+  async ngOnInit() {}
+
   navitems : NavItem[]= [
-    {text: 'פרטים אישיים', href:'/', children: [{text: 'עדכון טלפון ודואר אלקטרוני', href:'/'}], expanded: true},
+    {text: 'פרטים אישיים', href:'/', children: [{text: 'עדכון טלפון ודואר אלקטרוני', href:'/events'}], expanded: true},
     {
       text: 'פעילות בתיק', 
       href:'/', 
