@@ -5,13 +5,14 @@ import { LoginComponent } from './core/components/login/login.component';
 import { ConfigService } from './core/services/config/config.service';
 import { AuthGuard } from './core/services/auth/auth.guard';
 
-import { DataViewComponent } from './data/components/data-view/data-view.component';
-import { DataRouteConfigService } from './data/services/config/data.route.config.service';
+import { EventsRouteConfigService } from './features/events/services/events.route.config.service';
 
 const routes: Routes = [
-  { path: ConfigService.route.login, component: LoginComponent },
-  { path: DataRouteConfigService.events, component: DataViewComponent },
   { path: '', canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [] }
+  { path: ConfigService.route.login, component: LoginComponent },
+  { 
+    path: EventsRouteConfigService.events, 
+    loadChildren: () => import('./features/events/modules/events.module').then(m => m.EventsModule) },
 ];
 
 @NgModule({

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class DataRouteConfigService {
+export class EventsRouteConfigService {
     public static events: string = 'events';
-    public api: ApiDataRouteConfig = new ApiDataRouteConfig();
 
-    constructor() {}
+    constructor(public api: ApiEventsRouteConfig) {}
 }
 
-export class ApiDataRouteConfig {
+@Injectable()
+export class ApiEventsRouteConfig {
     public events: string = 'EventController';
 }

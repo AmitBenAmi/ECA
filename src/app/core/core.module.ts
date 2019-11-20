@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
@@ -21,13 +21,13 @@ import { MatSortModule } from '@angular/material/sort';
 
 import { AuthModule, OidcSecurityService, OidcConfigService } from 'angular-auth-oidc-client';
 
-import { AppRoutingModule } from '../app-routing.module';
 import { HttpService } from './services/http/http.service';
 import { authFactory } from './services/auth/auth.factory';
 import { AuthService } from './services/auth/auth.service';
 import { OIDCAuthService } from './services/auth/oidc/oidc.auth.service';
 import { ConfigService } from './services/config/config.service';
 import { LoggerService } from './services/logger/logger.service';
+import { DataViewComponent } from './components/data-view/data-view.component';
 import { TreeComponent } from './components/tree/tree.component';
 
 @NgModule({
@@ -46,18 +46,20 @@ import { TreeComponent } from './components/tree/tree.component';
     MatListModule,
     MatPaginatorModule,
     MatSortModule,
-    AppRoutingModule,
+    RouterModule,
     AuthModule.forRoot()
   ],
   declarations: [
     NavComponent,
     TableComponent,
     LoginComponent,
+    DataViewComponent,
     TreeComponent
   ],
   exports: [
     NavComponent,
     TableComponent,
+    DataViewComponent,
     TreeComponent
   ],
   providers: [
