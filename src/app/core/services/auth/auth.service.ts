@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Auth } from './auth';
 import { LoggerService } from '../logger/logger.service';
@@ -12,8 +11,7 @@ export abstract class AuthService implements Auth {
 
     constructor(
         protected loggerService: LoggerService,
-        protected configService: ConfigService,
-        protected router: Router
+        protected configService: ConfigService
     ) {}
 
     public get isAuthorized(): boolean {

@@ -5,7 +5,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { DataModule } from './data/modules/data/data.module';
 
 import { registerLocaleData } from '@angular/common';
 import localeHe from '@angular/common/locales/he';
@@ -20,8 +19,7 @@ registerLocaleData(localeHe);
       BrowserModule,
       AppRoutingModule,
       BrowserAnimationsModule,
-      CoreModule,
-      DataModule,
+      CoreModule
    ],
    providers: [],
    bootstrap: [

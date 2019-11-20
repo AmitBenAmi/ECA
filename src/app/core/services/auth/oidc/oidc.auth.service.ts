@@ -15,11 +15,11 @@ export class OIDCAuthService extends AuthService implements OnDestroy {
     constructor(
         loggerService: LoggerService,
         configService: ConfigService,
-        router: Router,
+        private router: Router,
         private oidcSecurityService: OidcSecurityService,
         private oidcConfigService: OidcConfigService
     ) {
-        super(loggerService, configService, router)
+        super(loggerService, configService)
         
         this.initAuth();
     }

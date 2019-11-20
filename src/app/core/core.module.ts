@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
@@ -28,13 +28,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthModule, OidcSecurityService, OidcConfigService } from 'angular-auth-oidc-client';
 
-import { AppRoutingModule } from '../app-routing.module';
 import { HttpService } from './services/http/http.service';
 import { authFactory } from './services/auth/auth.factory';
 import { AuthService } from './services/auth/auth.service';
 import { OIDCAuthService } from './services/auth/oidc/oidc.auth.service';
 import { ConfigService } from './services/config/config.service';
 import { LoggerService } from './services/logger/logger.service';
+import { DataViewComponent } from './components/data-view/data-view.component';
 import { TreeComponent } from './components/tree/tree.component';
 import { InputComponent } from './components/input/input.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -64,7 +64,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     MatListModule,
     MatPaginatorModule,
     MatSortModule,
-    AppRoutingModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -94,7 +94,8 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     RadioButtonComponent,
     CheckboxComponent,
     DynamicFieldDirective,
-    DynamicFormComponent
+    DynamicFormComponent,
+    DataViewComponent,
   ],
   exports: [
     NavComponent,
@@ -107,7 +108,8 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     RadioButtonComponent,
     SelectComponent,
     DynamicFormComponent,
-    DynamicFieldDirective
+    DynamicFieldDirective,
+    DataViewComponent
   ],
   entryComponents: [
     InputComponent,

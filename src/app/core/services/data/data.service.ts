@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { HttpService } from '../../../core/services/http/http.service';
-import { LoggerService } from '../../../core/services/logger/logger.service';
+import { HttpService } from '../http/http.service';
+import { LoggerService } from '../logger/logger.service';
 
 export interface IDataService {
     getData(): any;
