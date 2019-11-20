@@ -17,6 +17,8 @@ export class DynamicFormsDemoComponent {
       type: "input",
       label: "שם משתמש",
       inputType: "text",
+      value: "איתי",
+      disabled: true,
       name: "name",
       validations: [
         {
@@ -26,7 +28,7 @@ export class DynamicFormsDemoComponent {
         },
         {
           name: "pattern",
-          validator: Validators.pattern("^[a-zA-Z]+$"),
+          validator: Validators.pattern("^[א-ת]+$"),
           message: "חייב להיות טקסט בלבד"
         }
       ]
