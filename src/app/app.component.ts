@@ -19,12 +19,12 @@ export class AppComponent{
     translate.setDefaultLang(locale);
     translate.get("test").subscribe(() => {
       this.navitems = [
-        {text: this.translate.instant("navbar.personalDetails.text"), href:'/', children: [{text: this.translate.instant("navbar.personalDetails.updateDetails.text"), href:'/'}], expanded: true},
+        {text: this.translate.instant("navbar.personalDetails.text"), href:'/', children: [{text: this.translate.instant("navbar.personalDetails.updateDetails.text"), href:'/events'}], expanded: true},
         {
           text: this.translate.instant("navbar.caseActivities.text"), 
           href:'/', 
           children: [
-            {text: this.translate.instant("navbar.caseActivities.requestSubmit.text"), href:'/'},
+            {text: this.translate.instant("navbar.caseActivities.requestSubmit.text"), href:'/formdemo'},
             {text: this.translate.instant("navbar.caseActivities.waitRejectRequests.text"), href:'/'},
             {text: this.translate.instant("navbar.caseActivities.openCase.text"), href:'/'},
             {text: this.translate.instant("navbar.caseActivities.mainActivities.text"), href:'/'},

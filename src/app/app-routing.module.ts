@@ -13,6 +13,10 @@ const routes: Routes = [
   { 
     path: EventsRouteConfigService.events, 
     loadChildren: () => import('./features/events/modules/events.module').then(m => m.EventsModule)
+  },
+  {
+    path: "formdemo",
+    loadChildren: () => import('./features/dynamic-forms-demo/dynamic-forms-demo.module').then(m => m.DynamicFormsDemoModule)
   }
 ];
 

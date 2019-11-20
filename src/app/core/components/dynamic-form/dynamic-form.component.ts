@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { FieldConfig, Validator } from "../../../shared/field.interface";
 
 @Component({
-  selector: 'app-dynamic-form',
+  selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.less']
 })
