@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="he" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="cfcbf46b7e7a5b76b8ac5b44e66eac6eeee0d8e7" datatype="html">
+        <source>מערכת כלים שלובים</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/nav/nav.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <note priority="1" from="description">The app title</note>
+      </trans-unit>
+      <trans-unit id="a29467fadb2d1254f9b4d3caacee46bc88518e60" datatype="html">
+        <source>rtl</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/nav/nav.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

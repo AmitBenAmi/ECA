@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container" dir='rtl'>
+<mat-sidenav-container class="sidenav-container" i18n-dir dir="rtl">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -34,7 +34,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>מערכת כלים שלובים</span>
+      <span i18n="The app title">מערכת כלים שלובים</span>
       <span class="fill-space"></span>
       <mat-icon>search</mat-icon>
       <mat-icon>more_vert</mat-icon>

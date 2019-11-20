@@ -62,6 +62,13 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "en": {
+              "aot": true,
+              "outputPath": "dist/eca-en/",
+              "i18nFile": "src/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en"
             }
           }
         },
@@ -73,6 +80,9 @@
           "configurations": {
             "production": {
               "browserTarget": "ECA:build:production"
+            },
+            "en": {
+              "browserTarget": "ECA:build:en"
             }
           }
         },

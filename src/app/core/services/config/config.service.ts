@@ -12,7 +12,7 @@ export class ConfigService {
     public apiUrl = "http://localhost:58723/api";
     public static authType: AuthType = AuthType.OIDC;
     public oidc = new OIDCConfig();
-    public static route = new CoreRouteConfig();
+    public static route = CoreRouteConfig;
 
     constructor() { }
 

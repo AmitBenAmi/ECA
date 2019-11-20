@@ -1,3 +1,3 @@
 export class CoreRouteConfig {
-    public login: string = 'login';
+    public static login: string = 'login';
 }

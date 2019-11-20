@@ -7,6 +7,11 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { DataModule } from './data/modules/data/data.module';
 
+import { registerLocaleData } from '@angular/common';
+import localeHe from '@angular/common/locales/he';
+
+registerLocaleData(localeHe);
+
 @NgModule({
    declarations: [
       AppComponent
