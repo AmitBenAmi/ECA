@@ -5,6 +5,7 @@ import { CoreModule } from 'src/app/core/core.module';
 import { DataService } from '../../../core/services/data/data.service';
 
 import { EventsRoutingModule } from './events-routing.module';
+import { EventsRouteConfigService, ApiEventsRouteConfig } from '../services/events.route.config.service';
 import { EventsService } from '../services/events.service';
 
 @NgModule({
@@ -15,6 +16,8 @@ import { EventsService } from '../services/events.service';
   ],
   declarations: [],
   providers: [
+    ApiEventsRouteConfig,
+    EventsRouteConfigService,
     {
       provide: DataService,
       useClass: EventsService
