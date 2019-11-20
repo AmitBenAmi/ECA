@@ -1,6 +1,6 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -30,6 +30,10 @@ import { ConfigService } from './services/config/config.service';
 import { LoggerService } from './services/logger/logger.service';
 import { TreeComponent } from './components/tree/tree.component';
 
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { LOCALE_ID } from '@angular/core';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -47,7 +51,14 @@ import { TreeComponent } from './components/tree/tree.component';
     MatPaginatorModule,
     MatSortModule,
     AppRoutingModule,
-    AuthModule.forRoot()
+    AuthModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+         provide: TranslateLoader,
+         useFactory: HttpLoaderFactory,
+         deps: [HttpClient]
+      }
+   })
   ],
   declarations: [
     NavComponent,
@@ -58,9 +69,10 @@ import { TreeComponent } from './components/tree/tree.component';
   exports: [
     NavComponent,
     TableComponent,
-    TreeComponent
+    TreeComponent,
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: getCurrentLocale()},
     HttpService,
     OidcSecurityService,
     OidcConfigService,
@@ -84,3 +96,11 @@ import { TreeComponent } from './components/tree/tree.component';
   ]
 })
 export class CoreModule { }
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+export function getCurrentLocale(): string {
+  return localStorage.getItem('Language') || 'he';
+}

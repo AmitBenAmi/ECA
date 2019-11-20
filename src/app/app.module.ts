@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +21,7 @@ registerLocaleData(localeHe);
       AppRoutingModule,
       BrowserAnimationsModule,
       CoreModule,
-      DataModule
+      DataModule,
    ],
    providers: [],
    bootstrap: [

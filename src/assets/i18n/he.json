@@ -1,0 +1,49 @@
+{
+    "navbar": {
+        "personalDetails": {
+            "text": "פרטים אישיים",
+            "updateDetails": {
+                "text": "עדכון טלפון ודואר אלקטוני"
+            }
+        },
+        "caseActivities": {
+            "text": "פעילויות בתיק",
+            "requestSubmit": {
+                "text": "הגשת בקשה"
+            },
+            "waitRejectRequests" : {
+                "text": "בקשות בהמתנה\\נדחו"
+            },
+            "openCase": {
+                "text": "פתיחת תיק"
+            },
+            "mainActivities": {
+                "text": "פעילויות עיקריות בתיקים"
+            },
+            "addRepresntative": {
+                "text": "הוספת ייצוג בתיקים"
+            },
+            "addRepresntResult": {
+                "text": "תוצאות הוספת ייצוג"
+            }
+        },
+        "appActivities": {
+            "text": "פעילויות במערכת",
+            "lishka": {
+                "text": "יומן לשכה"
+            },
+            "caseForDate": {
+                "text": "תיקים לתאריך פתיחה"
+            },
+            "myCases": {
+                "text": "תיקים שלי"
+            },
+            "checkProcess": {
+                "text": "בדיקת הליך ביצוע"
+            },
+            "payment": {
+                "text": "לתשלום בכרטיס אשראי"
+            }
+        }
+    }
+}
