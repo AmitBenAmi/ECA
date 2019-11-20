@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavComponent } from './components/nav/nav.component';
@@ -26,6 +28,7 @@ import { AuthService } from './services/auth/auth.service';
 import { OIDCAuthService } from './services/auth/oidc/oidc.auth.service';
 import { ConfigService } from './services/config/config.service';
 import { LoggerService } from './services/logger/logger.service';
+import { TreeComponent } from './components/tree/tree.component';
 
 @NgModule({
   imports: [
@@ -33,6 +36,8 @@ import { LoggerService } from './services/logger/logger.service';
     HttpClientModule,
     MatToolbarModule,
     MatTableModule,
+    MatTreeModule,
+    MatProgressBarModule,
     MatIconModule,
     MatMenuModule,
     LayoutModule,
@@ -47,11 +52,13 @@ import { LoggerService } from './services/logger/logger.service';
   declarations: [
     NavComponent,
     TableComponent,
-    LoginComponent
+    LoginComponent,
+    TreeComponent
   ],
   exports: [
     NavComponent,
-    TableComponent
+    TableComponent,
+    TreeComponent
   ],
   providers: [
     HttpService,
