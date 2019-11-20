@@ -8,7 +8,7 @@ import { LOCALE_ID } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent {
+export class AppComponent{
   title = 'ECA';
 
   navitems : NavItem[]= null;
