@@ -148,7 +148,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
 export class CoreModule { }
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/');
 }
 
 export function getCurrentLocale(): string {

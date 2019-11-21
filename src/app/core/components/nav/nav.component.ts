@@ -2,6 +2,7 @@ import { Component, Input,  } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-nav',
@@ -16,7 +17,13 @@ export class NavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, 
+              private matIconRegistry: MatIconRegistry) {
+                this.matIconRegistry.addSvgIcon(
+                  'usa_flag',
+                  'assets/usa.svg'
+                );
+              }
 
 }
 
