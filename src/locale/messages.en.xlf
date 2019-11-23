@@ -23,6 +23,24 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7b9b92805be6ce7a795ffedccf768f669643a6f3" datatype="html">
+        <source>אין נתונים להציג</source>
+        <target>No data to show</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/data-view/data-view.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">No data to show</note>
+      </trans-unit>
+      <trans-unit id="d12033d27d26d6647db5f7543e61f286ce7365cf" datatype="html">
+        <source>שגיאה בקבלת הנתונים</source>
+        <target>Error getting the data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/data-view/data-view.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">Error getting the data</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>

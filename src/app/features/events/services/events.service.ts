@@ -28,11 +28,16 @@ export class EventsService extends DataService {
   }
 
   async getPageData(pageIndex: number, pageSize: number) {
-    let events = await this.httpService.post(`${this.configService.apiUrl}/${this.eventsRouteConfigService.api.events}/page`, {
-      pageIndex: pageIndex,
-      pageSize: pageSize
-    });
+    try {
+      let events = await this.httpService.post(`${this.configService.apiUrl}/${this.eventsRouteConfigService.api.events}/page`, {
+        pageIndex: pageIndex,
+        pageSize: pageSize
+      }, undefined, true);
 
-    return events;
+      return events;
+    } catch (exception) {
+      this.loggerService.error("Error when getting paged data for the events", exception);
+      throw exception;
+    }
   }
 }

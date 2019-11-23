@@ -11,18 +11,26 @@ import { DataService } from '../../services/data/data.service';
 export class DataViewComponent implements OnInit {
   data: Array<TableItem>;
   pageSize: number;
+  error: boolean;
 
   constructor(private dataService: DataService) {
     this.pageSize = 5;
+    this.error = false;
   }
 
   async ngOnInit() {
-    let dataFromService = await this.dataService.getPageData(0, this.pageSize);
-    this.data = this.convertDataToTableItem(dataFromService);
+    try {
+      let dataFromService = await this.dataService.getPageData(0, this.pageSize);
+      this.data = this.convertDataToTableItem(dataFromService);
+    } catch (exception) {
+      this.error = true;
+    }
   }
 
   private convertDataToTableItem(data: any): Array<TableItem> {
-    if (this.isDataArray(data)) {
+    if (!data) {
+      return undefined;
+    } else if (this.isDataArray(data)) {
       return data;
     } else {
       let dataAsArray: Array<TableItem> = [
@@ -38,7 +46,12 @@ export class DataViewComponent implements OnInit {
   }
 
   public async pageChangeEvent(pageChangeEventData: PageChangeEventData) {
-    let dataFromService = await this.dataService.getPageData(pageChangeEventData.pageIndex, pageChangeEventData.pageSize);
-    this.data = this.convertDataToTableItem(dataFromService);
+    try {
+      let dataFromService = await this.dataService.getPageData(pageChangeEventData.pageIndex, pageChangeEventData.pageSize);
+      this.data = this.convertDataToTableItem(dataFromService);
+      this.error = false;
+    } catch (exception) {
+      this.error = true;
+    }
   }
 }
