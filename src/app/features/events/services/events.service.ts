@@ -26,4 +26,13 @@ export class EventsService extends DataService {
     
     return events;
   }
+
+  async getPageData(pageIndex: number, pageSize: number) {
+    let events = await this.httpService.post(`${this.configService.apiUrl}/${this.eventsRouteConfigService.api.events}/page`, {
+      pageIndex: pageIndex,
+      pageSize: pageSize
+    });
+
+    return events;
+  }
 }

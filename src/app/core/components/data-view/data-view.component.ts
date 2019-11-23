@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TableItem } from '../../../core/components/table/view-model.table-datasource';
+import { TableItem } from '../table/view-model.table-datasource';
+import { PageChangeEventData } from '../table/table.component';
 import { DataService } from '../../services/data/data.service';
 
 @Component({
@@ -9,11 +10,14 @@ import { DataService } from '../../services/data/data.service';
 })
 export class DataViewComponent implements OnInit {
   data: Array<TableItem>;
+  pageSize: number;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {
+    this.pageSize = 5;
+  }
 
   async ngOnInit() {
-    let dataFromService = await this.dataService.getData();
+    let dataFromService = await this.dataService.getPageData(0, this.pageSize);
     this.data = this.convertDataToTableItem(dataFromService);
   }
 
@@ -33,4 +37,8 @@ export class DataViewComponent implements OnInit {
     return Array.isArray(data);
   }
 
+  public async pageChangeEvent(pageChangeEventData: PageChangeEventData) {
+    let dataFromService = await this.dataService.getPageData(pageChangeEventData.pageIndex, pageChangeEventData.pageSize);
+    this.data = this.convertDataToTableItem(dataFromService);
+  }
 }

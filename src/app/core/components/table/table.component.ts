@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { AfterViewInit, Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableItem } from './view-model.table-datasource'
@@ -29,6 +29,8 @@ export class TableComponent implements AfterViewInit, OnInit {
   @Input() pageSize: number = 20;
   @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
 
+  @Output() pageChange: EventEmitter<PageChangeEventData> = new EventEmitter();
+
   ngOnInit() {
     this.setDataSource();
   }
@@ -50,4 +52,12 @@ export class TableComponent implements AfterViewInit, OnInit {
       this.displayedColumns = Object.keys(this.dataSource.data[0]);
     }
   }
+
+  public pageChangeEvent(pageEvent: PageEvent): void {
+    this.pageChange.emit(new PageChangeEventData(pageEvent.pageIndex, pageEvent.pageSize));
+  }
+}
+
+export class PageChangeEventData {
+  constructor(public pageIndex: number, public pageSize: number) { }
 }
