@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { FieldConfig, Validator } from "../../../shared/field.interface";
 
 @Component({
-  selector: 'app-dynamic-form',
+  selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.less']
 })
@@ -38,7 +38,7 @@ export class DynamicFormComponent implements OnInit {
     this.fields.forEach(field => {
       if (field.type === "button") return;
       const control = this.fb.control(
-        field.value,
+        {value: field.value, disabled: field.disabled },
         this.bindValidations(field.validations || [])
       );
       group.addControl(field.name, control);

@@ -5,7 +5,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-
+import { DynamicFormsDemoModule } from './features/dynamic-forms-demo/dynamic-forms-demo.module';
 import { registerLocaleData } from '@angular/common';
 import localeHe from '@angular/common/locales/he';
 
@@ -19,7 +19,8 @@ registerLocaleData(localeHe);
       BrowserModule,
       AppRoutingModule,
       BrowserAnimationsModule,
-      CoreModule
+      CoreModule,
+      DynamicFormsDemoModule
    ],
    providers: [],
    bootstrap: [

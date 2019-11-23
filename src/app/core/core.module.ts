@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -71,6 +72,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatCheckboxModule,
     MatRadioModule,
     AuthModule.forRoot(),
@@ -146,7 +148,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
 export class CoreModule { }
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/');
 }
 
 export function getCurrentLocale(): string {

@@ -47,6 +47,7 @@
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
+              "baseHref": "/he/",
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -66,9 +67,11 @@
             "en": {
               "aot": true,
               "outputPath": "dist/eca-en/",
+              "baseHref": "/en/",
               "i18nFile": "src/locale/messages.en.xlf",
               "i18nFormat": "xlf",
-              "i18nLocale": "en"
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error"
             }
           }
         },

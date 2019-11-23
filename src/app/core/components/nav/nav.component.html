@@ -4,7 +4,7 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
-      <img id="logoImg" src="../../assets/logo.png">
+      <img id="logoImg" src="assets/logo.png">
     </mat-toolbar>
     <mat-nav-list>
       <div *ngFor="let navitem of items" >
@@ -14,15 +14,21 @@
               </a>
               <div *ngIf="navitem.expanded">
                 <div *ngFor="let child of navitem.children">
-                    <a mat-list-item [href]="child.href">{{child.text}}</a> 
+                    <a mat-list-item [routerLink]="child.href">{{child.text}}</a> 
                 </div>
               </div>
           </div>
           <div *ngIf="navitem.children.length == 0">
-              <a mat-list-item [href]="navitem.href" (click)="navitem.expanded = !navitem.expanded">{{navitem.text}}</a> 
+              <a mat-list-item [routerLink]="navitem.href" (click)="navitem.expanded = !navitem.expanded">{{navitem.text}}</a> 
           </div>
       </div>
     </mat-nav-list>
+
+    <div>
+      <a href="/en/">EN</a>
+      <br>
+      <a href="/he/">HE</a>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
