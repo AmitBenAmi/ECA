@@ -8,35 +8,51 @@ export class HttpService {
     constructor(private httpClient: HttpClient,
         private loggerService: LoggerService) { }
 
-    async get(url: string, options?: HttpRequestOptions) {
+    async get(url: string, options?: HttpRequestOptions, throwError: boolean = false) {
         try {
             return await this.httpClient.get(url, options).toPromise();
         } catch (exception) {
-            this.loggerService.error("Error in HTTP Get.", exception)
+            this.loggerService.error("Error in HTTP Get.", exception);
+
+            if (throwError) {
+                throw exception;
+            }
         }
     }
 
-    async post(url: string, body?: any, options?: HttpRequestOptions) {
+    async post(url: string, body?: any, options?: HttpRequestOptions, throwError: boolean = false) {
         try{
             return await this.httpClient.post(url, body, options).toPromise();
         } catch (exception) {
-            this.loggerService.error("Error in HTTP Post.", exception)
+            this.loggerService.error("Error in HTTP Post.", exception);
+
+            if (throwError) {
+                throw exception;
+            }
         }
     }
 
-    async put(url: string, body?: any, options?: HttpRequestOptions) {
+    async put(url: string, body?: any, options?: HttpRequestOptions, throwError: boolean = false) {
         try {
             return await this.httpClient.put(url, body, options).toPromise();
         } catch (exception) {
-            this.loggerService.error("Error in HTTP Put.", exception)
+            this.loggerService.error("Error in HTTP Put.", exception);
+
+            if (throwError) {
+                throw exception;
+            }
         }
     }
 
-    async delete(url: string, options?: HttpRequestOptions) {
+    async delete(url: string, options?: HttpRequestOptions, throwError: boolean = false) {
         try {
             return await this.httpClient.delete(url, options).toPromise();
         } catch (exception) {
-            this.loggerService.error("Error in HTTP Delete.", exception)
+            this.loggerService.error("Error in HTTP Delete.", exception);
+
+            if (throwError) {
+                throw exception;
+            }
         }
     }
 }
