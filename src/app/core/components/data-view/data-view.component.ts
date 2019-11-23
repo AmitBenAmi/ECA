@@ -11,11 +11,13 @@ import { DataService } from '../../services/data/data.service';
 export class DataViewComponent implements OnInit {
   data: Array<TableItem>;
   pageSize: number;
+  loading: boolean;
   error: boolean;
 
   constructor(private dataService: DataService) {
     this.pageSize = 5;
     this.error = false;
+    this.loading = true;
   }
 
   async ngOnInit() {
@@ -24,6 +26,8 @@ export class DataViewComponent implements OnInit {
       this.data = this.convertDataToTableItem(dataFromService);
     } catch (exception) {
       this.error = true;
+    } finally {
+      this.loading = false;
     }
   }
 

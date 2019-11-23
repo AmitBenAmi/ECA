@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavComponent } from './components/nav/nav.component';
@@ -48,6 +49,7 @@ import { RadioButtonComponent } from './components/radio-button/radio-button.com
 import { SelectComponent } from './components/select/select.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -57,6 +59,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     MatTableModule,
     MatTreeModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatIconModule,
     MatMenuModule,
     LayoutModule,
@@ -98,6 +101,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     DynamicFieldDirective,
     DynamicFormComponent,
     DataViewComponent,
+    SpinnerComponent
   ],
   exports: [
     NavComponent,
@@ -111,7 +115,8 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     SelectComponent,
     DynamicFormComponent,
     DynamicFieldDirective,
-    DataViewComponent
+    DataViewComponent,
+    SpinnerComponent
   ],
   entryComponents: [
     InputComponent,
