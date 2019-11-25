@@ -16,18 +16,10 @@ export class TableDataSource extends DataSource<TableItem> {
   private _pageInitiazlied: boolean = false;
 
   constructor(
-    private _data: Array<TableItem>, 
+    public data: Array<TableItem>, 
     private lazyLoadPage: boolean = false,
     private pageDataFetchCallback: (pageIndex: number) => Promise<void> = undefined) {
     super();
-  }
-
-  public get data(): Array<TableItem> {
-    return this._data;
-  }
-
-  public set data(value: Array<TableItem>) {
-    this._data = value;
   }
 
   /**
