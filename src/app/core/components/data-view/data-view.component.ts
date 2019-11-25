@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TableItem } from '../table/view-model.table-datasource';
-import { PageChangeEventData } from '../table/table.component';
 import { DataService } from '../../services/data/data.service';
 
 @Component({
@@ -11,18 +11,39 @@ import { DataService } from '../../services/data/data.service';
 export class DataViewComponent implements OnInit {
   data: Array<TableItem>;
   pageSize: number;
+  pagesLength: number;
   loading: boolean;
   error: boolean;
+  lazyLoad: boolean = false;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
     this.pageSize = 5;
     this.error = false;
     this.loading = true;
+
+    if (this.route.snapshot.data &&
+        this.route.snapshot.data['lazyLoad'] != undefined &&
+        typeof this.route.snapshot.data['lazyLoad'] === 'boolean') {
+      this.lazyLoad = this.route.snapshot.data['lazyLoad'];
+    }
   }
 
   async ngOnInit() {
+    await this.fetchData(0);
+  }
+
+  private async fetchData(pageIndex: number) {
     try {
-      let dataFromService = await this.dataService.getPageData(0, this.pageSize);
+      let dataFromService;
+      if (this.lazyLoad) {
+        let promisedDataFromService = await this.dataService.getPageData(pageIndex, this.pageSize);
+        dataFromService = promisedDataFromService.data;
+        this.pagesLength = promisedDataFromService.length;
+      } else {
+        dataFromService = await this.dataService.getData();
+      }
+
+      this.error = false;
       this.data = this.convertDataToTableItem(dataFromService);
     } catch (exception) {
       this.error = true;
@@ -49,13 +70,7 @@ export class DataViewComponent implements OnInit {
     return Array.isArray(data);
   }
 
-  public async pageChangeEvent(pageChangeEventData: PageChangeEventData) {
-    try {
-      let dataFromService = await this.dataService.getPageData(pageChangeEventData.pageIndex, pageChangeEventData.pageSize);
-      this.data = this.convertDataToTableItem(dataFromService);
-      this.error = false;
-    } catch (exception) {
-      this.error = true;
-    }
+  public async fetchPageEvent(pageIndex: number) {
+    this.fetchData(pageIndex);
   }
 }

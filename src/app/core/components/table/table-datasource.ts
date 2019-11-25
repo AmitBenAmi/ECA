@@ -1,8 +1,8 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { Observable, of as observableOf, merge, Subject } from 'rxjs';
 import { TableItem } from './view-model.table-datasource';
 
 /**
@@ -13,8 +13,12 @@ import { TableItem } from './view-model.table-datasource';
 export class TableDataSource extends DataSource<TableItem> {
   paginator: MatPaginator;
   sort: MatSort;
+  private _pageInitiazlied: boolean = false;
 
-  constructor(private _data: Array<TableItem>) {
+  constructor(
+    private _data: Array<TableItem>, 
+    private lazyLoadPage: boolean = false,
+    private pageDataFetchCallback: (pageIndex: number) => Promise<void> = undefined) {
     super();
   }
 
@@ -42,8 +46,18 @@ export class TableDataSource extends DataSource<TableItem> {
 
     return merge(...dataMutations)
       .pipe(
-        map(() => {
-          return this.getPagedData(this.getSortedData([...this.data]));
+        mergeMap(async () => {
+          if (this.lazyLoadPage) {
+            if (!this._pageInitiazlied && this.data) {
+              this._pageInitiazlied = true;
+            } else {
+              await this.pageDataFetchCallback(this.paginator.pageIndex);
+            }
+            
+            return this.getSortedData([...this.data]);
+          } else {
+            return this.getPagedData(this.getSortedData([...this.data]));
+          }
         })
       );
   }

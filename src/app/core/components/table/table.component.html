@@ -11,10 +11,9 @@
 
   <mat-paginator #paginator
       [style.display]="dataSource?.data.length == 0 ? 'none' : 'inherit'"
-      [length]="dataSource?.data.length"
+      [length]="pagesLength"
       [pageIndex]="0"
       [pageSize]="pageSize"
-      [pageSizeOptions]="pageSizeOptions"
-      (page)="pageChangeEvent($event)">
+      [pageSizeOptions]="pageSizeOptions">
   </mat-paginator>
 </div>

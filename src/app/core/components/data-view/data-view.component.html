@@ -1,9 +1,11 @@
 <app-table 
     *ngIf="data" 
     [data]="data" 
+    [lazyLoad]="lazyLoad"
     [pageSize]="pageSize" 
     [pageSizeOptions]="[5,10,15]"
-    (pageChange)="pageChangeEvent($event)"></app-table>
+    [pagesLength]="lazyLoad ? pagesLength : data.length"
+    (fetchPageEvent)="fetchPageEvent($event)"></app-table>
 
 <app-spinner *ngIf="loading"></app-spinner>
 

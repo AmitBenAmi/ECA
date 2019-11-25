@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableItem } from './view-model.table-datasource'
 import { TableDataSource } from './table-datasource';
+import { Subject } from 'rxjs';
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-table',
@@ -20,18 +22,30 @@ export class TableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [];
 
   private _data: Array<TableItem> = [];
+  private _dataSubject: Subject<any>;
 
   @Input()
   set data(value: Array<TableItem>) {
     this._data = value;
+    
+    if (this.lazyLoad && this._dataSubject) {
+      this.setDataSource();
+      this._dataSubject.next();
+    }
   }
 
   @Input() pageSize: number = 20;
   @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
+  @Input() pagesLength: number;
+  @Input() lazyLoad: boolean = false;
 
-  @Output() pageChange: EventEmitter<PageChangeEventData> = new EventEmitter();
+  @Output() fetchPageEvent: EventEmitter<number> = new EventEmitter();
 
   ngOnInit() {
+    if (this.lazyLoad) {
+      this._dataSubject = new Subject();
+    }
+
     this.setDataSource();
   }
 
@@ -43,7 +57,9 @@ export class TableComponent implements AfterViewInit, OnInit {
 
   private setDataSource(): void {
     if (!this.dataSource) {
-      this.dataSource = new TableDataSource(this._data);
+      this.dataSource = new TableDataSource(this._data, this.lazyLoad, this.fetchPageData.bind(this));
+    } else {
+      this.dataSource.data = this._data;
     }
 
     if (this.dataSource &&
@@ -53,11 +69,13 @@ export class TableComponent implements AfterViewInit, OnInit {
     }
   }
 
-  public pageChangeEvent(pageEvent: PageEvent): void {
-    this.pageChange.emit(new PageChangeEventData(pageEvent.pageIndex, pageEvent.pageSize));
-  }
-}
+  public async fetchPageData(pageIndex: number): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this._dataSubject.pipe(take(1)).subscribe(() => {
+        resolve();
+      });
 
-export class PageChangeEventData {
-  constructor(public pageIndex: number, public pageSize: number) { }
+      this.fetchPageEvent.emit(pageIndex);
+    });
+  }
 }

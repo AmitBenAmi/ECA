@@ -4,7 +4,7 @@ import { HttpService } from '../../../core/services/http/http.service';
 import { LoggerService } from '../../../core/services/logger/logger.service';
 import { ConfigService } from '../../../core/services/config/config.service';
 
-import { DataService } from '../../../core/services/data/data.service';
+import { DataService, PageData } from '../../../core/services/data/data.service';
 import { EventsRouteConfigService } from './events.route.config.service';
 
 @Injectable()
@@ -19,22 +19,27 @@ export class EventsService extends DataService {
   }
 
   async getData() {
-    let events = await this.httpService.post(`${this.configService.apiUrl}/${this.eventsRouteConfigService.api.events}`, {
-      caseId: 0,
-      legalEntityNumber: '0'
-    });
-    
-    return events;
+    try {
+      let events = await this.httpService.post(`${this.configService.apiUrl}/${this.eventsRouteConfigService.api.events}`, {
+        caseId: 0,
+        legalEntityNumber: '0'
+      });
+      
+      return events;
+    } catch (exception) {
+      this.loggerService.error("Error when getting data for the events", exception);
+      throw exception;
+    }
   }
 
   async getPageData(pageIndex: number, pageSize: number) {
     try {
-      let events = await this.httpService.post(`${this.configService.apiUrl}/${this.eventsRouteConfigService.api.events}/page`, {
+      let pageData: any = await this.httpService.post(`${this.configService.apiUrl}/${this.eventsRouteConfigService.api.events}/page`, {
         pageIndex: pageIndex,
         pageSize: pageSize
       }, undefined, true);
 
-      return events;
+      return new PageData(pageData.events, pageData.length);
     } catch (exception) {
       this.loggerService.error("Error when getting paged data for the events", exception);
       throw exception;
