@@ -35,6 +35,8 @@ export class TableComponent implements AfterViewInit, OnInit {
   }
 
   @Input() pageSize: number = 20;
+  @Output() pageSizeChange = new EventEmitter<number>();
+  
   @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
   @Input() pagesLength: number;
   @Input() lazyLoad: boolean = false;
@@ -77,5 +79,10 @@ export class TableComponent implements AfterViewInit, OnInit {
 
       this.fetchPageEvent.emit(pageIndex);
     });
+  }
+
+  public pageChangeEvent(pageEvent: PageEvent) {
+    this.pageSize = pageEvent.pageSize;
+    this.pageSizeChange.emit(this.pageSize);
   }
 }
