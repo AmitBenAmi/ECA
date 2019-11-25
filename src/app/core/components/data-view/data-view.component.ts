@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TableItem } from '../table/view-model.table-datasource';
 import { DataService } from '../../services/data/data.service';
+import { FetchDataEventEmitterValue } from '../table/table.component';
+import { SortDirection } from '../table/table-datasource';
 
 @Component({
   selector: 'app-data-view',
@@ -32,11 +34,11 @@ export class DataViewComponent implements OnInit {
     await this.fetchData(0);
   }
 
-  private async fetchData(pageIndex: number) {
+  private async fetchData(pageIndex: number, sortField: string = undefined, sortDirection: SortDirection = SortDirection.NONE) {
     try {
       let dataFromService;
       if (this.lazyLoad) {
-        let promisedDataFromService = await this.dataService.getPageData(pageIndex, this.pageSize);
+        let promisedDataFromService = await this.dataService.getPageData(pageIndex, this.pageSize, sortField, sortDirection);
         dataFromService = promisedDataFromService.data;
         this.pagesLength = promisedDataFromService.length;
       } else {
@@ -70,7 +72,7 @@ export class DataViewComponent implements OnInit {
     return Array.isArray(data);
   }
 
-  public async fetchPageEvent(pageIndex: number) {
-    this.fetchData(pageIndex);
+  public async fetchPageEvent(fetchEventData: FetchDataEventEmitterValue) {
+    this.fetchData(fetchEventData.pageIndex, fetchEventData.sortField, fetchEventData.sortDirection);
   }
 }

@@ -3,7 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableItem } from './view-model.table-datasource'
-import { TableDataSource } from './table-datasource';
+import { TableDataSource, SortDirection } from './table-datasource';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators'
 
@@ -41,7 +41,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   @Input() pagesLength: number;
   @Input() lazyLoad: boolean = false;
 
-  @Output() fetchPageEvent: EventEmitter<number> = new EventEmitter();
+  @Output() fetchPageEvent: EventEmitter<FetchDataEventEmitterValue> = new EventEmitter();
 
   ngOnInit() {
     if (this.lazyLoad) {
@@ -71,13 +71,13 @@ export class TableComponent implements AfterViewInit, OnInit {
     }
   }
 
-  public async fetchPageData(pageIndex: number): Promise<void> {
+  public async fetchPageData(pageIndex: number, sortField: string, sortDirection: SortDirection): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this._dataSubject.pipe(take(1)).subscribe(() => {
         resolve();
       });
 
-      this.fetchPageEvent.emit(pageIndex);
+      this.fetchPageEvent.emit(new FetchDataEventEmitterValue(pageIndex, sortField, sortDirection));
     });
   }
 
@@ -85,4 +85,8 @@ export class TableComponent implements AfterViewInit, OnInit {
     this.pageSize = pageEvent.pageSize;
     this.pageSizeChange.emit(this.pageSize);
   }
+}
+
+export class FetchDataEventEmitterValue {
+  constructor(public pageIndex: number, public sortField: string, public sortDirection: SortDirection) {}
 }

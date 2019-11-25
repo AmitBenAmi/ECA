@@ -6,6 +6,7 @@ import { ConfigService } from '../../../core/services/config/config.service';
 
 import { DataService, PageData } from '../../../core/services/data/data.service';
 import { EventsRouteConfigService } from './events.route.config.service';
+import { SortDirection } from 'src/app/core/components/table/table-datasource';
 
 @Injectable()
 export class EventsService extends DataService {
@@ -32,11 +33,13 @@ export class EventsService extends DataService {
     }
   }
 
-  async getPageData(pageIndex: number, pageSize: number) {
+  async getPageData(pageIndex: number, pageSize: number, sortField: string, sortDirection: SortDirection) {
     try {
       let pageData: any = await this.httpService.post(`${this.configService.apiUrl}/${this.eventsRouteConfigService.api.events}/page`, {
         pageIndex: pageIndex,
-        pageSize: pageSize
+        pageSize: pageSize,
+        sortField: sortField,
+        sortDirection: sortDirection
       }, undefined, true);
 
       return new PageData(pageData.events, pageData.length);

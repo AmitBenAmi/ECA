@@ -18,7 +18,7 @@ export class TableDataSource extends DataSource<TableItem> {
   constructor(
     public data: Array<TableItem>, 
     private lazyLoadPage: boolean = false,
-    private pageDataFetchCallback: (pageIndex: number) => Promise<void> = undefined) {
+    private pageDataFetchCallback: (pageIndex: number, sortField: string, sortDirection: SortDirection) => Promise<void> = undefined) {
     super();
   }
 
@@ -43,10 +43,13 @@ export class TableDataSource extends DataSource<TableItem> {
             if (!this._pageInitiazlied && this.data) {
               this._pageInitiazlied = true;
             } else {
-              await this.pageDataFetchCallback(this.paginator.pageIndex);
+              await this.pageDataFetchCallback(
+                this.paginator.pageIndex, 
+                this.sort.active, 
+                SortDirection.getDirection(this.sort.direction));
             }
             
-            return this.getSortedData([...this.data]);
+            return this.data;
           } else {
             return this.getPagedData(this.getSortedData([...this.data]));
           }
@@ -88,4 +91,26 @@ export class TableDataSource extends DataSource<TableItem> {
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+export enum SortDirection {
+  ASC,
+  DESC,
+  NONE
+}
+
+export namespace SortDirection {
+  export function getDirection(sortDirection: string) {
+    switch(sortDirection) {
+      case('desc'): {
+        return SortDirection.DESC;
+      } 
+      case('asc'): {
+        return SortDirection.ASC;
+      }
+      default: {
+        return SortDirection.NONE;
+      }
+    }
+  }
 }
