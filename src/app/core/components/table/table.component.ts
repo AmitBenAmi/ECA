@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild, Input, Output, EventEmitte
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TableItem } from './view-model.table-datasource'
 import { TableDataSource, SortDirection } from './table-datasource';
 import { Subject } from 'rxjs';
@@ -10,7 +11,14 @@ import { take } from 'rxjs/operators'
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.less']
+  styleUrls: ['./table.component.less'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+    ])
+  ]
 })
 export class TableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
@@ -20,6 +28,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns: string[] = [];
+  expandedRow: TableItem;
 
   private _data: Array<TableItem> = [];
   private _dataSubject: Subject<any>;
@@ -40,6 +49,8 @@ export class TableComponent implements AfterViewInit, OnInit {
   @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
   @Input() pagesLength: number;
   @Input() lazyLoad: boolean = false;
+  @Input() expandable: boolean = false;
+  @Input() pageable: boolean = true;
 
   @Output() fetchPageEvent: EventEmitter<FetchDataEventEmitterValue> = new EventEmitter();
 

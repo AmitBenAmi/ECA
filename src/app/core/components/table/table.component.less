@@ -1,3 +1,37 @@
 .full-width-table {
   width: 100%;
 }
+
+tr {
+  &.table-data-details-row {
+    height: 0;
+  }
+
+  &.table-data-row-expandable {
+    cursor: pointer;
+
+    &:not(.table-data-row-expanded) {
+      &:hover {
+        background: #777;
+      }
+
+      &:active {
+        background: #efefef;
+      }
+    }
+
+    td {
+      border-bottom-width: 0;
+    }
+  }
+}
+
+.data-row-details {
+  overflow: hidden;
+  display: flex;
+
+  app-table {
+    width: 100%;
+    border: 1px solid black;
+  }
+}

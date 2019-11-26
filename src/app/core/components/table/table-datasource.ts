@@ -30,11 +30,14 @@ export class TableDataSource extends DataSource<TableItem> {
   connect(): Observable<Array<TableItem>> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
-    const dataMutations = [
+    let dataMutations: any = [
       observableOf(this.data),
-      this.paginator.page,
       this.sort.sortChange
     ];
+
+    if (this.paginator) {
+      dataMutations.push(this.paginator.page);
+    }
 
     return merge(...dataMutations)
       .pipe(
@@ -51,7 +54,13 @@ export class TableDataSource extends DataSource<TableItem> {
             
             return this.data;
           } else {
-            return this.getPagedData(this.getSortedData([...this.data]));
+            let data = this.getSortedData([...this.data]);
+
+            if (this.paginator) {
+              data = this.getPagedData(data);
+            }
+            
+            return data;
           }
         })
       );
