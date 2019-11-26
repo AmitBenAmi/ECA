@@ -6,7 +6,11 @@
     [(pageSize)]="pageSize" 
     [pageSizeOptions]="[5,10,15]"
     [pagesLength]="lazyLoad ? pagesLength : data.length"
-    (fetchPageEvent)="fetchPageEvent($event)"></app-table>
+    (fetchPageEvent)="fetchPageEvent($event)"
+    [expandableDetailAsTemplate]="false">
+    <!-- This will be the template inside the extra data row -->
+    <ng-template #expandedRowDetail>Extra data</ng-template>
+</app-table>
 
 <app-spinner *ngIf="loading"></app-spinner>
 

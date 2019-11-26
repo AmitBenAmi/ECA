@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Input, Output, EventEmitter, ContentChild, TemplateRef } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -25,6 +25,8 @@ export class TableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<TableItem>;
   dataSource: TableDataSource;
+
+  @ContentChild('expandedRowDetail', {static: false}) expandedRowDetailImpl: TemplateRef<any>;
   
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns: string[] = [];
@@ -32,6 +34,7 @@ export class TableComponent implements AfterViewInit, OnInit {
 
   private _data: Array<TableItem> = [];
   private _dataSubject: Subject<any>;
+  readonly EXTRA_DATA_PROPERTY_NAME: string = "extraData";
 
   @Input()
   set data(value: Array<TableItem>) {
@@ -50,6 +53,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   @Input() pagesLength: number;
   @Input() lazyLoad: boolean = false;
   @Input() expandable: boolean = false;
+  @Input() expandableDetailAsTemplate: boolean = false;
   @Input() pageable: boolean = true;
 
   @Output() fetchPageEvent: EventEmitter<FetchDataEventEmitterValue> = new EventEmitter();
@@ -78,7 +82,13 @@ export class TableComponent implements AfterViewInit, OnInit {
     if (this.dataSource &&
         this.dataSource.data &&
         this.dataSource.data.length > 0) {
-      this.displayedColumns = Object.keys(this.dataSource.data[0]);
+      this.displayedColumns = Object.keys(this.dataSource.data[0]).reduce((columnsToDisplay, column) => {
+        if (column !== this.EXTRA_DATA_PROPERTY_NAME) {
+          columnsToDisplay.push(column);
+        }
+
+        return columnsToDisplay;
+      }, []);
     }
   }
 
