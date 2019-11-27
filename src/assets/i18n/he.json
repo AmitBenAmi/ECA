@@ -45,5 +45,15 @@
                 "text": "לתשלום בכרטיס אשראי"
             }
         }
+    },
+    "paginator": {
+        "labels": {
+            "itemsPerPage": "מספר פריטים בעמוד:",
+            "nextPage": "עמוד הבא",
+            "previousPage": "עמוד קודם",
+            "firstPage": "עמוד ראשון",
+            "lastPage": "עמוד אחרון",
+            "pagesOutOf": "מתוך"
+        }
     }
 }

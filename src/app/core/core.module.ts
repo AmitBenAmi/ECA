@@ -17,7 +17,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,6 +33,7 @@ import { AuthModule, OidcSecurityService, OidcConfigService } from 'angular-auth
 import { HttpService } from './services/http/http.service';
 import { authFactory } from './services/auth/auth.factory';
 import { AuthService } from './services/auth/auth.service';
+import { MatPaginatorI18nService } from './services/paginator/mat-paginator-i18n.service';
 import { OIDCAuthService } from './services/auth/oidc/oidc.auth.service';
 import { ConfigService } from './services/config/config.service';
 import { LoggerService } from './services/logger/logger.service';
@@ -147,6 +148,10 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
         OidcSecurityService,
         OidcConfigService
       ]
+    },
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorI18nService
     }
   ]
 })

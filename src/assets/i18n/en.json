@@ -45,5 +45,15 @@
                 "text": "Credit card payment"
             }
         }
+    },
+    "paginator": {
+        "labels": {
+            "itemsPerPage": "Items per page:",
+            "nextPage": "Next page",
+            "previousPage": "Previous page",
+            "firstPage": "First page",
+            "lastPage": "Last page",
+            "pagesOutOf": "of"
+        }
     }
 }
