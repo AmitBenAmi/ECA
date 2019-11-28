@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit} from "@angular/core";
 import { Validators } from "@angular/forms";
 import { FieldConfig } from "../../shared/field.interface";
 import { DynamicFormComponent } from "../../core/components/dynamic-form/dynamic-form.component";
-
+import { validateEmail } from './validators/email-validator';
 
 @Component({
   selector: 'app-dynamic-forms-demo',
@@ -46,9 +46,7 @@ export class DynamicFormsDemoComponent {
         },
         {
           name: "pattern",
-          validator: Validators.pattern(
-            "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
-          ),
+          validator: validateEmail,
           message: "Invalid email"
         }
       ]
