@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eca-deployment
+  labels:
+    app: eca
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: eca
+  template:
+    metadata:
+      labels:
+        app: eca
+    spec:
+      containers:
+      - name: eca
+        image: eca:prod
+        ports:
+        - containerPort: 8080
