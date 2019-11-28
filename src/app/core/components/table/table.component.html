@@ -26,23 +26,30 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
         [class.table-data-row-expandable]="expandable"
         [class.table-data-row-expanded]="expandedRow === row"
         (click)="expandedRow = expandedRow === row ? null : row">
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="table-data-details-row"></tr>
-  </table>
 
-  <mat-paginator *ngIf="pageable"
-      #paginator
-      [style.display]="dataSource?.data.length == 0 ? 'none' : 'inherit'"
-      [length]="pagesLength"
-      [pageIndex]="0"
-      [pageSize]="pageSize"
-      [pageSizeOptions]="pageSizeOptions"
-      (page)="pageChangeEvent($event)"
-      [showFirstLastButtons]="true">
-  </mat-paginator>
+    <ng-container *ngIf="pageable">
+      <ng-container matColumnDef="stickyPaginator">
+        <td mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length">
+          <mat-paginator
+            #paginator
+            [style.display]="dataSource?.data.length == 0 ? 'none' : 'inherit'"
+            [length]="pagesLength"
+            [pageIndex]="0"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="pageChangeEvent($event)"
+            [showFirstLastButtons]="true">
+          </mat-paginator>
+        </td>
+      </ng-container>
+      <tr mat-footer-row *matFooterRowDef="['stickyPaginator']; sticky: true"></tr>
+    </ng-container>
+  </table>
 </div>
