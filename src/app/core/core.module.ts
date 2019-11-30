@@ -51,6 +51,7 @@ import { SelectComponent } from './components/select/select.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { NoDataComponent } from './components/no-data/no-data.component';
 
 @NgModule({
   imports: [
@@ -102,7 +103,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     DynamicFieldDirective,
     DynamicFormComponent,
     DataViewComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    NoDataComponent
   ],
   exports: [
     NavComponent,
@@ -117,7 +119,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     DynamicFormComponent,
     DynamicFieldDirective,
     DataViewComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    NoDataComponent
   ],
   entryComponents: [
     InputComponent,

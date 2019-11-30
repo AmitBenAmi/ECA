@@ -15,7 +15,4 @@
 
 <app-spinner *ngIf="loading"></app-spinner>
 
-<div *ngIf="!data && !loading">
-    <h3 *ngIf="!error" i18n="No data to show">אין נתונים להציג</h3>
-    <h3 *ngIf="error" i18n="Error getting the data">שגיאה בקבלת הנתונים</h3>
-</div>
+<app-no-data *ngIf="!data && !loading" [error]="error"></app-no-data>

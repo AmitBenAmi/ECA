@@ -1,0 +1,7 @@
+<ng-container *ngIf="error; then errorMessage; else noDataMessage"></ng-container>
+<ng-template #noDataMessage>
+  <h3 i18n="No data to show">אין נתונים להציג</h3>
+</ng-template>
+<ng-template #errorMessage>
+  <h3 i18n="Error getting the data">שגיאה בקבלת הנתונים</h3>
+</ng-template>
