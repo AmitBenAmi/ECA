@@ -1,5 +1,5 @@
 <app-table 
-    *ngIf="data" 
+    *ngIf="data?.length > 0" 
     [data]="data" 
     [columns]="dataColumns"
     [lazyLoad]="lazyLoad"
@@ -15,4 +15,4 @@
 
 <app-spinner *ngIf="loading"></app-spinner>
 
-<app-no-data *ngIf="!data && !loading" [error]="error"></app-no-data>
+<app-no-data *ngIf="!(data?.length > 0) && !loading" [error]="error"></app-no-data>
