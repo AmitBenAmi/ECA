@@ -29,12 +29,14 @@ export class TableComponent implements AfterViewInit, OnInit {
   @ContentChild('expandedRowDetail', {static: false}) expandedRowDetailImpl: TemplateRef<any>;
   
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns: string[] = [];
+  displayedColumns: Array<string> = [];
+  namedColumns: Array<string> = [];
   expandedRow: TableItem;
 
   private _data: Array<TableItem> = [];
   private _dataSubject: Subject<any>;
-  readonly EXTRA_DATA_PROPERTY_NAME: string = "extraData";
+  readonly EXTRA_DATA_PROPERTY_NAME: string = 'extraData';
+  readonly EXTRA_DATA_COLUMNS_PROPERTY_NAME: string = 'columnDefinitions';
 
   @Input()
   set data(value: Array<TableItem>) {
@@ -46,10 +48,11 @@ export class TableComponent implements AfterViewInit, OnInit {
     }
   }
 
+  @Input() columns: ColumnDefinition[];
   @Input() pageSize: number = 20;
   @Output() pageSizeChange = new EventEmitter<number>();
   
-  @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
+  @Input() pageSizeOptions: Array<number> = [10, 20, 50, 100];
   @Input() pagesLength: number;
   @Input() lazyLoad: boolean = false;
   @Input() expandable: boolean = false;
@@ -79,17 +82,35 @@ export class TableComponent implements AfterViewInit, OnInit {
       this.dataSource.data = this._data;
     }
 
-    if (this.dataSource &&
-        this.dataSource.data &&
-        this.dataSource.data.length > 0) {
-      this.displayedColumns = Object.keys(this.dataSource.data[0]).reduce((columnsToDisplay, column) => {
-        if (column !== this.EXTRA_DATA_PROPERTY_NAME) {
-          columnsToDisplay.push(column);
-        }
+    this.clearColumns();
 
-        return columnsToDisplay;
-      }, []);
+    if (this.columns && this.columns.length > 0) {
+      this.columns.forEach((columnDefinition) => {
+        if (!this.isColumnExtraData(columnDefinition.name)) {
+          this.addColumn(columnDefinition.name, columnDefinition.displayName);
+        }
+      });
+    } else if (this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
+      Object.keys(this.dataSource.data[0]).forEach((column) => {
+        if (!this.isColumnExtraData(column)) {
+          this.addColumn(column, column);
+        }
+      });
     }
+  }
+
+  private clearColumns(): void {
+    this.namedColumns = [];
+    this.displayedColumns = [];
+  }
+
+  private addColumn(columnName: string, columnDisplayName: string): void {
+    this.namedColumns.push(columnName);
+    this.displayedColumns.push(columnDisplayName);
+  }
+
+  private isColumnExtraData(columnName: string): boolean {
+    return columnName === this.EXTRA_DATA_PROPERTY_NAME;
   }
 
   public async fetchPageData(pageIndex: number, sortField: string, sortDirection: SortDirection): Promise<void> {
@@ -110,4 +131,8 @@ export class TableComponent implements AfterViewInit, OnInit {
 
 export class FetchDataEventEmitterValue {
   constructor(public pageIndex: number, public sortField: string, public sortDirection: SortDirection) {}
+}
+
+export class ColumnDefinition {
+  constructor(public name: string, public displayName: string) {}
 }

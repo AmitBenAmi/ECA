@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TableItem } from '../table/view-model.table-datasource';
 import { DataService } from '../../services/data/data.service';
-import { FetchDataEventEmitterValue } from '../table/table.component';
+import { FetchDataEventEmitterValue, ColumnDefinition } from '../table/table.component';
 import { SortDirection } from '../table/table-datasource';
 
 @Component({
@@ -12,6 +12,7 @@ import { SortDirection } from '../table/table-datasource';
 })
 export class DataViewComponent implements OnInit {
   data: Array<TableItem>;
+  dataColumns: Array<ColumnDefinition>;
   pageSize: number;
   pagesLength: number;
   loading: boolean;

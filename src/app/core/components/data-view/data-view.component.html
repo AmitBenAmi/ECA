@@ -1,6 +1,7 @@
 <app-table 
     *ngIf="data" 
     [data]="data" 
+    [columns]="dataColumns"
     [lazyLoad]="lazyLoad"
     [expandable]="true"
     [(pageSize)]="pageSize" 
