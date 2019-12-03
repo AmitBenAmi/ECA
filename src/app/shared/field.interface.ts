@@ -10,8 +10,19 @@ export interface FieldConfig {
     inputType?: string;
     options?: string[];
     collections?: any;
-    type: string;
+    type: FieldType;
     value?: any;
     validations?: Validator[];
     disabled?: boolean;
+    subFields?: Array<FieldConfig>;
+}
+
+export enum FieldType {
+    input,
+    button,
+    select,
+    date,
+    radio,
+    checkbox,
+    group
 }

@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit} from "@angular/core";
 import { Validators } from "@angular/forms";
-import { FieldConfig } from "../../shared/field.interface";
+import { FieldConfig, FieldType } from "../../shared/field.interface";
 import { DynamicFormComponent } from "../../core/components/dynamic-form/dynamic-form.component";
 import { validateEmail } from './validators/email-validator';
 
@@ -14,7 +14,28 @@ export class DynamicFormsDemoComponent {
 
   regConfig: FieldConfig[] = [
     {
-      type: "input",
+      type: FieldType.group,
+      name: 'subObject',
+      subFields: [{
+        type: FieldType.input,
+        label: 'Sub field input property',
+        inputType: 'text',
+        value: 'Sub Property Value',
+        name: 'subPropertyInput'
+      },
+      {
+        type: FieldType.date,
+        label: 'Sub field date property',
+        name: 'subPropertyDate',
+        validations: [{
+          name: "required",
+          validator: Validators.required,
+          message: "חובה למלא שדה זה"
+        }]
+      }]
+    },
+    {
+      type: FieldType.input,
       label: "שם משתמש",
       inputType: "text",
       value: "איתי",
@@ -34,7 +55,7 @@ export class DynamicFormsDemoComponent {
       ]
     },
     {
-      type: "input",
+      type: FieldType.input,
       label: "אימייל",
       inputType: "email",
       name: "email",
@@ -52,7 +73,7 @@ export class DynamicFormsDemoComponent {
       ]
     },
     {
-      type: "input",
+      type: FieldType.input,
       label: "סיסמא",
       inputType: "password",
       name: "password",
@@ -65,14 +86,14 @@ export class DynamicFormsDemoComponent {
       ]
     },
     {
-      type: "radiobutton",
+      type: FieldType.radio,
       label: "מין",
       name: "gender",
       options: ["זכר", "נקבה"],
       value: "Male"
     },
     {
-      type: "date",
+      type: FieldType.date,
       label: "תאריך לידה",
       name: "dob",
       validations: [
@@ -84,27 +105,27 @@ export class DynamicFormsDemoComponent {
       ]
     },
     {
-      type: "select",
+      type: FieldType.select,
       label: "מדינה",
       name: "country",
       value: "ישראל",
       options: ["סין", "הודו", "אנגליה", "ארצות הברית"]
     },
     {
-      type: "checkbox",
+      type: FieldType.checkbox,
       label: "מסכים לתנאים",
       name: "term",
       value: true
     },
     {
-      type: "button",
+      type: FieldType.button,
       label: "Save"
     }
   ];
 
-  submit(value: any) {}
+  submit(value: any) {
+  }
 
   OnInit() {
-
   }
 }

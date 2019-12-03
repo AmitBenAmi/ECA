@@ -49,7 +49,9 @@ import { DateComponent } from './components/date/date.component';
 import { RadioButtonComponent } from './components/radio-button/radio-button.component';
 import { SelectComponent } from './components/select/select.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { DynamicFormGroupComponent } from './components/dynamic-form-group/dynamic-form-group.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
+import { DynamicFieldGroupDirective } from './components/dynamic-field/dynamic-field-group.directive';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NoDataComponent } from './components/no-data/no-data.component';
 
@@ -101,6 +103,8 @@ import { NoDataComponent } from './components/no-data/no-data.component';
     RadioButtonComponent,
     CheckboxComponent,
     DynamicFieldDirective,
+    DynamicFieldGroupDirective,
+    DynamicFormGroupComponent,
     DynamicFormComponent,
     DataViewComponent,
     SpinnerComponent,
@@ -117,7 +121,9 @@ import { NoDataComponent } from './components/no-data/no-data.component';
     RadioButtonComponent,
     SelectComponent,
     DynamicFormComponent,
+    DynamicFormGroupComponent,
     DynamicFieldDirective,
+    DynamicFieldGroupDirective,
     DataViewComponent,
     SpinnerComponent,
     NoDataComponent
@@ -128,7 +134,8 @@ import { NoDataComponent } from './components/no-data/no-data.component';
     SelectComponent,
     DateComponent,
     RadioButtonComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    DynamicFormGroupComponent
   ],
   providers: [
     { provide: LOCALE_ID, useValue: getCurrentLocale()},

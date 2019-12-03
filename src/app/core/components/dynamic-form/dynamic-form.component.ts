@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
-import { FieldConfig, Validator } from "../../../shared/field.interface";
+import { FieldConfig, FieldType } from "../../../shared/field.interface";
 
 @Component({
   selector: 'dynamic-form',
@@ -20,7 +20,7 @@ export class DynamicFormComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.form = this.createControl();
+    this.form = this.createControl(this.fields);
   }
 
   onSubmit(event: Event) {
@@ -33,17 +33,36 @@ export class DynamicFormComponent implements OnInit {
     }
   }
 
-  createControl() {
+  createControl(fields): FormGroup {
     const group = this.fb.group({});
-    this.fields.forEach(field => {
-      if (field.type === "button") return;
-      const control = this.fb.control(
-        {value: field.value, disabled: field.disabled },
-        this.bindValidations(field.validations || [])
-      );
-      group.addControl(field.name, control);
+
+    fields.forEach(field => {
+      switch (field.type) {
+        case (FieldType.button): {
+          return;
+        } 
+        case (FieldType.group): {
+          let subFieldsGroup: FormGroup = this.createControl(field.subFields);
+          this.addControlToGroup(group, field.name, subFieldsGroup);
+          break;
+        }
+        default: {
+          const control = this.fb.control({
+            value: field.value, 
+            disabled: field.disabled
+          }, this.bindValidations(field.validations || []));
+
+          this.addControlToGroup(group, field.name, control);
+          break;
+        }
+      }
     });
+
     return group;
+  }
+
+  private addControlToGroup(group: FormGroup, fieldName: string, control: FormControl | FormGroup): void {
+    group.addControl(fieldName, control);
   }
 
   bindValidations(validations: any) {
@@ -60,8 +79,15 @@ export class DynamicFormComponent implements OnInit {
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
-      control.markAsTouched({ onlySelf: true });
+      if (control instanceof FormGroup) {
+        control.markAllAsTouched();
+      } else {
+        control.markAsTouched({ onlySelf: true });
+      }
     });
   }
 
+  public getFieldType() {
+    return FieldType;
+  }
 }
