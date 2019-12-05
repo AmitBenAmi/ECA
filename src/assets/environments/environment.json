@@ -1,0 +1,7 @@
+{
+    "name": "prod",
+    "production": true,
+    "settings": {
+      "backend": "api.myapp.com"
+    }
+  }
