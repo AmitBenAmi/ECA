@@ -9,7 +9,6 @@ export interface FieldConfig {
     name?: string;
     inputType?: string;
     options?: string[];
-    collections?: any;
     type: FieldType;
     value?: any;
     validations?: Validator[];
