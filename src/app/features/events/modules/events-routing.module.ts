@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DataViewComponent } from '../../../core/components/data-view/data-view.component';
+import { EventsTableComponent } from '../events-table/events-table.component'
 
 const routes: Routes = [
-    { path: '', component: DataViewComponent, data: { lazyLoad: true } }
+    { path: '', component: EventsTableComponent, data: { lazyLoad: true } }
 ];
 
 @NgModule({

@@ -5,21 +5,29 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
       <img id="logoImg" src="assets/logo.png">
+      <!-- <div class="logo-title">כלים שלובים</div> -->
     </mat-toolbar>
     <mat-nav-list>
       <div *ngFor="let navitem of items" >
           <div *ngIf="navitem.children.length > 0">
               <a mat-list-item (click)="navitem.expanded = !navitem.expanded">{{navitem.text}}
+                  <mat-icon class="mat-icon-rtl-mirror" *ngIf="navitem.icon">{{navitem.icon}}</mat-icon>
                   <mat-icon class="mat-icon-rtl-mirror">{{ navitem.expanded ? 'chevron_right' : 'expand_more' }}</mat-icon>
               </a>
               <div *ngIf="navitem.expanded">
                 <div *ngFor="let child of navitem.children">
-                    <a mat-list-item [routerLink]="child.href">{{child.text}}</a> 
+                    <a mat-list-item [routerLink]="child.href">
+                      {{child.text}}
+                      <mat-icon class="mat-icon-rtl-mirror" *ngIf="child.icon">{{child.icon}}</mat-icon>
+                    </a> 
                 </div>
               </div>
           </div>
           <div *ngIf="navitem.children.length == 0">
-              <a mat-list-item [routerLink]="navitem.href" (click)="navitem.expanded = !navitem.expanded">{{navitem.text}}</a> 
+              <a mat-list-item [routerLink]="navitem.href" (click)="navitem.expanded = !navitem.expanded">
+                {{navitem.text}}
+                <mat-icon class="mat-icon-rtl-mirror" *ngIf="navitem.icon">{{navitem.icon}}</mat-icon>
+              </a> 
           </div>
       </div>
     </mat-nav-list>
@@ -40,7 +48,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span i18n="The app title">מערכת כלים שלובים</span>
+      <span class="navstyle" i18n="The app title">כלים שלובים</span>
       <span class="fill-space"></span>
       <mat-icon>search</mat-icon>
       <mat-icon>more_vert</mat-icon>

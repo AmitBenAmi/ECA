@@ -19,7 +19,7 @@ export class AppComponent{
     translate.setDefaultLang(locale);
     translate.get("test").subscribe(() => {
       this.navitems = [
-        {text: this.translate.instant("navbar.personalDetails.text"), href:'/', children: [{text: this.translate.instant("navbar.personalDetails.updateDetails.text"), href:'/events'}], expanded: true},
+        {text: this.translate.instant("navbar.personalDetails.text"), icon:"search", href:'/', children: [{text: this.translate.instant("navbar.personalDetails.updateDetails.text"), href:'/events'}], expanded: true},
         {
           text: this.translate.instant("navbar.caseActivities.text"), 
           href:'/', 

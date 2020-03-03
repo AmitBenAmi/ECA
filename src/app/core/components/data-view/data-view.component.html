@@ -1,3 +1,11 @@
+<div *ngIf="filters">
+    <!-- Filter Section -->
+    <div *ngFor="let filter of filters">
+        <ng-container *ngIf="filter.filterValue.length == 1">
+            <mat-checkbox (change)="refresh()" [(ngModel)]="filter.isChecked">{{filter.filterDes}}</mat-checkbox>
+        </ng-container>
+    </div>
+</div>
 <app-table 
     *ngIf="data?.length > 0" 
     [data]="data" 

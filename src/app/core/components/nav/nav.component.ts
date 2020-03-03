@@ -32,4 +32,5 @@ export class NavItem {
   href: string;
   children?: NavItem[];
   expanded?: boolean;
+  icon?: string;
 }

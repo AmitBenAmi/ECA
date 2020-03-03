@@ -19,7 +19,7 @@ export class DynamicFieldDirective implements OnInit{
     [FieldType.select]: SelectComponent,
     [FieldType.date]: DateComponent,
     [FieldType.radio]: RadioButtonComponent,
-    [FieldType.checkbox]: CheckboxComponent
+    [FieldType.checkbox]: CheckboxComponent,
   };
 
   @Input() protected field: FieldConfig;

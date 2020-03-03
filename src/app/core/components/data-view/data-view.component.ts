@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TableItem } from '../table/view-model.table-datasource';
 import { DataService } from '../../services/data/data.service';
 import { FetchDataEventEmitterValue, ColumnDefinition } from '../table/table.component';
 import { SortDirection } from '../table/table-datasource';
+import { TableFilter } from './table-filter';
 
 @Component({
   selector: 'app-data-view',
@@ -12,12 +13,18 @@ import { SortDirection } from '../table/table-datasource';
 })
 export class DataViewComponent implements OnInit {
   data: Array<TableItem>;
+  @Input()
+  filters: Array<TableFilter>;
+  @Input()
   dataColumns: Array<ColumnDefinition>;
   pageSize: number;
   pagesLength: number;
   loading: boolean;
   error: boolean;
   lazyLoad: boolean = false;
+  currPageIndex: number;
+  currSortField: string;
+  currSortDir: SortDirection;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
     this.pageSize = 5;
@@ -34,16 +41,23 @@ export class DataViewComponent implements OnInit {
   async ngOnInit() {
     await this.fetchData(0);
   }
+  
+  public refresh() {
+    this.fetchData(this.currPageIndex, this.currSortField, this.currSortDir);
+  }
 
   private async fetchData(pageIndex: number, sortField: string = undefined, sortDirection: SortDirection = SortDirection.NONE) {
     try {
       let dataFromService;
       if (this.lazyLoad) {
-        let promisedDataFromService = await this.dataService.getPageData(pageIndex, this.pageSize, sortField, sortDirection);
+        let promisedDataFromService = await this.dataService.getPageData(pageIndex, this.pageSize, sortField, sortDirection, this.filters);
         dataFromService = promisedDataFromService.data;
         this.pagesLength = promisedDataFromService.length;
+        this.currPageIndex = pageIndex;
+        this.currSortField = sortField;
+        this.currSortDir = sortDirection;
       } else {
-        dataFromService = await this.dataService.getData();
+        dataFromService = await this.dataService.getData(this.filters);
       }
 
       this.error = false;

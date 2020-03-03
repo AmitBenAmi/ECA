@@ -79,7 +79,8 @@ export class TableComponent implements AfterViewInit, OnInit {
     if (!this.dataSource) {
       this.dataSource = new TableDataSource(this._data, this.lazyLoad, this.fetchPageData.bind(this));
     } else {
-      this.dataSource.data = this._data;
+      this.dataSource = new TableDataSource(this._data, this.lazyLoad, this.fetchPageData.bind(this));
+      this.ngAfterViewInit();
     }
 
     this.clearColumns();
@@ -133,6 +134,15 @@ export class FetchDataEventEmitterValue {
   constructor(public pageIndex: number, public sortField: string, public sortDirection: SortDirection) {}
 }
 
+export enum ColumnType {
+  Text = 1,
+  Button = 2,
+  Icon=3
+}
+
 export class ColumnDefinition {
-  constructor(public name: string, public displayName: string) {}
+  constructor(public name: string, 
+              public displayName: string, 
+              public type?: ColumnType, 
+              public onClick?: (row: any) => void) {}
 }
