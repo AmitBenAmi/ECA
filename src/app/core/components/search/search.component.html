@@ -1,0 +1,75 @@
+<div class="row" [ngClass]="{'search-style-on': search==0}">
+        <div class="col-4" style="text-align: right" [ngClass]="{'dontshow': search==1}">
+                <mat-icon style="font-size: 23px">search</mat-icon>
+        </div>
+        <div class="col-8 pointer" (click)="startSearch()" [ngClass]="{'dontshow': search==1}">
+            <h6 style="font-size: 17px">חפש תיק</h6>
+        </div>
+        <div class="col-6" [ngClass]="{'show': search==1, 'dontshow': search==0, 'padding-search-bar-first': search == 1, 'padding-search-bar-second': searchlength == 1}">
+           <form class="container-fluid">
+            <mat-form-field [ngClass]="{'searchformwide': searchlength == 1}">
+             <mat-icon matPrefix>search</mat-icon>
+              <input (ngModelChange)="SearchItem($event)" name="selectinput" type="text" aria-label="Number" matInput [matAutocomplete]="auto" [(ngModel)]="searchCase" #myControl="ngModel">
+             <span matSuffix class="ml-3">חפש תיק</span>
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                      <!-- Dropdown Headline -->
+                      <div class="row" *ngIf="i == 0" >
+                        <div class="col right">
+                                <h6 class="searchcase">תאריך פתיחה </h6>
+                        </div>
+                        <div class="col right">
+                                <h6 class="searchcase">זוכה</h6>
+                        </div>
+                        <div class="col right">
+                                <h6 class="searchcase">חייב</h6>
+                        </div>
+                        <div class="col right">
+                                <h6 class="searchcase">סוג </h6>
+                         </div>
+                         <div class="col right">
+                                <h6 class="searchcase">מספר תיק</h6> 
+                         </div>
+                      </div>
+                <mat-option *ngFor="let option of dataSource; let i = index;" [value]="option" [ngClass]="{'dontshow': searchCase.length < 3}">
+                        <br>
+                        <br>
+                
+                        <!-- Dropdown Options acording to the search value -->
+                        <div class="row" style="margin-bottom: 30px" (click)="navigate()">
+                                  <div class="col searchwidth">
+                                          <h6 class="searchfontsize">{{option.date}}</h6>
+                                  </div>
+                                  <div class="col searchwidth">
+                                          <h6 class="searchfontsize">{{option.creditorName}}</h6>
+                                  </div>
+                                  <div class="col searchwidth">
+                                          <h6 class="searchfontsize">{{option.deborName}}</h6>
+                                  </div>
+                                  <div class="col searchwidth">
+                                          <h6 class="searchfontsize">{{option.cseType}}</h6>
+                                   </div>
+                                   <div class="col searchwidth">
+                                          <h6 class="searchfontsize">{{option.dispId}}</h6> 
+                                   </div>
+                          </div>
+                          <br>
+                        <!-- No Data Error -->
+                      </mat-option>
+                         <mat-option  class="no-Data-Style" *ngIf="display" >
+                                 <div > 
+                                     <h6 >לא נמצאו נתונים תואמים לחיפוש</h6>                         
+                                 </div> 
+                        </mat-option>
+
+                        <!-- Server Error -->
+                        <mat-option class="error-Style" *ngIf="error != 0 && searchCase.length > 2">
+                                <div>
+                                     <h6><b>שגיאה {{error}} :</b> לא התקבלו נתונים מהשרת</h6>                         
+                                </div>
+                        </mat-option>
+                    </mat-autocomplete>
+          </mat-form-field>
+      </form>
+        </div>
+        
+</div> 

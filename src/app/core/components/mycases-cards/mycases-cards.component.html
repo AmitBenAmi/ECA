@@ -1,0 +1,59 @@
+<!-- <div *ngIf="filters">
+    <div *ngFor="let f of filters">
+        <h4>{{f.id}}</h4>
+    </div>
+</div> -->
+<div class="row container-fluid" style="text-align: center;" *ngIf=!cards>
+    <app-spinner></app-spinner>
+</div>
+<div *ngIf="cards == ''">
+    <h3 style="text-align: center;">אין נתונים להצגה</h3>
+</div>
+
+<div class="row" style="margin-right: 10px;" dir="ltr" *ngIf=cards>
+    
+    <mat-card class="main-tooltip borderradius marginleft25" *ngFor="let card of cards; let i = index;" style="margin-top: 30px;">
+            <mat-card-header>
+                <div class="row container-fluid card-header">
+                    <div class="col-5 textright">
+                        <button *ngIf="card.payment" class="btn floatright" mat-raised-button color="primary" matTooltip="לתשלום: {{card.payment}} שח">   
+                            לתשלום
+                        </button>
+                    </div>
+                    <div class="col-7 floatright" style="text-align: right">
+                        <mat-card-title><h6 class="bold">תיק:  {{card.dispId}}</h6></mat-card-title>
+                        <mat-card-subtitle><h6 style="font-weight: bold">{{card.cseType}}</h6></mat-card-subtitle>
+                    </div>
+                </div>
+            </mat-card-header>
+            <mat-card-content class="container-fluid">
+                <br>
+                <div class="row">
+                    <div class="col">
+                            <div>
+                                <h6 class="textright greycolor h7b">{{card.alias}}</h6>
+                            </div>
+                            <div style="position: absolute;">
+                                <h6 class="textright blackcolor bold h7c">{{card.lgEntName}}</h6>
+                            </div>
+                    </div>
+                    <div class="col leftcardborder">
+                            <h6 class="textright greycolor h7b">יתרת חוב בבנק</h6>
+                            <h6 class="textright blackcolor bold h7c">{{card.balance}}</h6>
+                    </div>
+                    <div class="col leftcardborder">
+                            <h6 class="textright greycolor h7b">תאריך פתיחה</h6>
+                            <h6 class="textright blackcolor bold h7c">{{card.date}}</h6>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                    <div class="row footer">
+                            <div class="col-11">
+                                    
+                                    <h6 class="h7b textright redcolor bold notestyle">{{card.lastActivity}}</h6>
+                            </div>
+                    </div>
+            </mat-card-actions>
+  </mat-card>
+</div>

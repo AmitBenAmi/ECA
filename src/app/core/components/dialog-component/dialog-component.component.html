@@ -1,0 +1,36 @@
+<!-- Dialog Header -->
+<div class="row container-fluid colorstyle">
+  <div class="col-2 pointer">
+    <mat-icon color="primary" (click)="Close()" style="float: left;">close</mat-icon>
+  </div>
+  <div class="col mr-4" style="text-align: center;">
+    <h5 mat-flat-title>{{headertitle}}</h5>
+  </div>
+</div>
+
+<div class="row floatright">
+  <button mat-button color="warn">
+    הדפס
+</button>
+<button class="ml-3" mat-button color="warn">
+    <a download="14 pages.pdf" target="_blank" href="../../../../assets/14 pages.pdf">
+      PDF הורד קובץ 
+    </a>
+</button>
+</div>
+
+<br><br>
+<!-- Dialog Content -->
+<div class="bg">
+  <!--  text-align: center; align-items: stretch; class="mat-dialog-content" -->
+  <!-- <img src="assets/PDFPicture.png"> -->
+  <object data="../../../../assets/14 pages.pdf" width="100%" height="100%" type='application/pdf'>
+    <p>Sorry, the PDF couldn't be displayed :(</p>
+    <!-- <a href="../../../../assets/14 pages.pdf" target="_blank">Click Here</a> -->
+  </object>
+</div>
+<!-- Dialog bottom/action -->
+<!-- <div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button cdkFocusInitial>Ok</button>
+</div> -->
